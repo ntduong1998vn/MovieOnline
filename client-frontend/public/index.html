@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>React App</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript">
+      addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+      	function hideURLbar(){ window.scrollTo(0,1); }
+    </script>
+    <!-- //for-mobile-apps -->
+    <link
+      href="%PUBLIC_URL%/assets/css/bootstrap.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/css/style.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="%PUBLIC_URL%/assets/css/contactstyle.css"
+      type="text/css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="%PUBLIC_URL%/assets/css/faqstyle.css"
+      type="text/css"
+      media="all"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/css/single.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/css/medile.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- pop-up -->
+    <link
+      href="%PUBLIC_URL%/assets/css/popuo-box.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <!-- //pop-up -->
+    <!-- Latest compiled and minified CSS
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    /> -->
+    <!-- font-awesome icons -->
+    <link
+      rel="stylesheet"
+      href="%PUBLIC_URL%/assets/css/font-awesome.min.css"
+    />
+    <!-- //font-awesome icons -->
+    <!-- js -->
+    <script
+      type="text/javascript"
+      src="%PUBLIC_URL%/assets/js/jquery-2.1.4.min.js"
+    ></script>
+    <!-- //js -->
+    <!-- banner-bottom-plugin -->
+    <link
+      href="%PUBLIC_URL%/assets/css/owl.carousel.css"
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+    />
+    <script src="%PUBLIC_URL%/assets/js/owl.carousel.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#owl-demo").owlCarousel({
+          autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+          items: 5,
+          itemsDesktop: [640, 4],
+          itemsDesktopSmall: [414, 3]
+        });
+      });
+    </script>
+    <!-- //banner-bottom-plugin -->
+    <link
+      href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- start-smoth-scrolling -->
+    <script
+      type="text/javascript"
+      src="%PUBLIC_URL%/assets/js/move-top.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="%PUBLIC_URL%/assets/js/easing.js"
+    ></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $(".scroll").click(function(event) {
+          event.preventDefault();
+          $("html,body").animate(
+            { scrollTop: $(this.hash).offset().top },
+            1000
+          );
+        });
+      });
+    </script>
+    <!-- start-smoth-scrolling -->
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="%PUBLIC_URL%/assets/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $(".dropdown").hover(
+          function() {
+            $(".dropdown-menu", this)
+              .stop(true, true)
+              .slideDown("fast");
+            $(this).toggleClass("open");
+          },
+          function() {
+            $(".dropdown-menu", this)
+              .stop(true, true)
+              .slideUp("fast");
+            $(this).toggleClass("open");
+          }
+        );
+      });
+    </script>
+    <!-- //Bootstrap Core JavaScript -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+
+        $().UItoTop({ easingType: "easeOutQuart" });
+      });
+    </script>
+    <!-- //here ends scrolling icon -->
+  </body>
+</html>
