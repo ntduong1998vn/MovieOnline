@@ -32,35 +32,11 @@ const Footer = () => {
         </div>
         <div className="col-md-5 w3ls_footer_grid1_left">
           <p>
-            &copy; 2016 One Movies. All rights reserved | Design by{" "}
-            <a href="http://w3layouts.com/">W3layouts</a>
+            &copy; 2019. Tiểu luận chuyên ngành | Design by{" "}
+            <a href="#">Nguyễn Triều Dương</a>
           </p>
         </div>
-        <div className="col-md-7 w3ls_footer_grid1_right">
-          <ul>
-            <li>
-              <a href="genres.html">Movies</a>
-            </li>
-            <li>
-              <a href="faq.html">FAQ</a>
-            </li>
-            <li>
-              <a href="horror.html">Action</a>
-            </li>
-            <li>
-              <a href="genres.html">Adventure</a>
-            </li>
-            <li>
-              <a href="comedy.html">Comedy</a>
-            </li>
-            <li>
-              <a href="icons.html">Icons</a>
-            </li>
-            <li>
-              <a href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
+
         <div className="clearfix"> </div>
       </div>
     </div>

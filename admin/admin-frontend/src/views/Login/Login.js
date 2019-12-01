@@ -31,17 +31,6 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.authenticated) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/",
-            state: { from: this.props.location }
-          }}
-        />
-      );
-    }
-
     return (
       <div className="login-container">
         <div className="login-content">
@@ -116,7 +105,7 @@ class LoginForm extends Component {
       .catch(error => {
         Alert.error(
           (error && error.message) ||
-            "Oops! Something went wrong. Please try again!"
+          "Oops! Something went wrong. Please try again!"
         );
       });
   }

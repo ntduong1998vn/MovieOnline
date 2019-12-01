@@ -14,14 +14,14 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/genres/")
+@RequestMapping("/api/genres")
 public class GenreController {
 
     @Autowired
     private GenreService service;
 
     @GetMapping("/")
-    public HttpEntity getAll() {
+    public ResponseEntity<?> getAll() {
         List<Genre> genres = service.findAll();
 
         return new ResponseEntity<>(genres, HttpStatus.OK);

@@ -181,7 +181,7 @@ const MyNavBar = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="short-codes.html">Short Codes</a>
+                  <Link to="/user">User</Link>
                 </li>
                 <li>
                   <a href="list.html">A - z list</a>

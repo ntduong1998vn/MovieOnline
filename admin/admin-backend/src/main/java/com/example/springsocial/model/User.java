@@ -29,6 +29,9 @@ public class User {
     @JsonIgnore
     private String password;
 
+    @JsonIgnore
+    private String type;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
@@ -97,5 +100,13 @@ public class User {
 
     public void setProviderId(String providerId) {
         this.providerId = providerId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

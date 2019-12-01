@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { GenreMovieArray1 } from "../variable";
 import StarRatings from "react-star-ratings";
-import { IMAGE_BASE_URL, POSTER_SIZE } from "../constants/the-movie-db-api";
-import { Link } from "react-router-dom";
 
-const MovieCard = ({ movieId, imgUrl, movieName, release, isNew }) => {
+const Item = ({ imgUrl, movieName, release, isNew }) => {
+  useEffect(() => {
+    window.$(document).ready(function() {
+      window.$("#owl-demo").owlCarousel({
+        autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+        items: 5,
+        itemsDesktop: [640, 4],
+        itemsDesktopSmall: [414, 3]
+      });
+    });
+  });
+
   return (
-    <div className="col-md-2 w3l-movie-gride-agile">
-      <Link to={`/movie/${movieId}`} className="hvr-shutter-out-horizontal">
+    <div className="w3l-movie-gride-agile">
+      <a href="single.html" className="hvr-shutter-out-horizontal">
         <img
-          src={`${IMAGE_BASE_URL}${POSTER_SIZE}${imgUrl}`}
+          src={imgUrl}
           title={movieName}
           className="img-responsive"
           alt=" "
@@ -16,11 +27,11 @@ const MovieCard = ({ movieId, imgUrl, movieName, release, isNew }) => {
         <div className="w3l-action-icon">
           <i className="fa fa-play-circle" aria-hidden="true"></i>
         </div>
-      </Link>
+      </a>
       <div className="mid-1 agileits_w3layouts_mid_1_home">
         <div className="w3l-movie-text">
           <h6>
-            <Link to={`/movie/${movieId}`}>{movieName}</Link>
+            <a href="single.html">{movieName}</a>
           </h6>
         </div>
         <div className="mid-2 agile_mid_2_home">
@@ -49,4 +60,22 @@ const MovieCard = ({ movieId, imgUrl, movieName, release, isNew }) => {
   );
 };
 
-export default MovieCard;
+const CustomCarousel = () => {
+  return (
+    <div id="owl-demo" class="owl-carousel owl-theme">
+      {GenreMovieArray1.map((movie, index) => {
+        return (
+          <Item
+            imgUrl={movie.imgUrl}
+            movieName={movie.movieName}
+            release={movie.release}
+            isNew={movie.isNew}
+            key={index}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+export default CustomCarousel;

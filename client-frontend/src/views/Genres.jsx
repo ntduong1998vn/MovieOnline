@@ -5,7 +5,7 @@ import "../assets/news-css/news.css";
 import "../assets/list-css/list.css";
 import { GenreMovieArray1, GenreMovieArray2 } from "../variable";
 import MovieCard from "../components/MovieCard";
-import Test from "../components/Test";
+import CustomCarousel from "../components/CustomCarousel";
 
 const Genres = () => {
   return (
@@ -91,19 +91,7 @@ const Genres = () => {
           <h4 class="latest-text">Movie Reviews</h4>
           <div class="container">
             <div class="w3_agile_banner_bottom_grid">
-              <div id="owl-demo" class="owl-carousel owl-theme">
-                {GenreMovieArray1.map((movie, index) => {
-                  return (
-                    <Test
-                      imgUrl={movie.imgUrl}
-                      movieName={movie.movieName}
-                      release={movie.release}
-                      isNew={movie.isNew}
-                      key={index}
-                    />
-                  );
-                })}
-              </div>
+              <CustomCarousel />
             </div>
           </div>
         </div>

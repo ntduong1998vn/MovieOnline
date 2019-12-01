@@ -3,17 +3,20 @@ import SliderCard from "../components/SliderCard";
 import "../assets/css/flexslider.css";
 import { SliderCardArray } from "../variable";
 import "../assets/js/jquery.magnific-popup";
+
 const PopularMovie = () => {
   const flexEl = useRef(null);
   // const magnificEl = useRef(null);
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "assets/js/jquery.flexslider.js";
     script.defer = true;
     flexEl.current.appendChild(script);
   });
+
   useEffect(() => {
-    window.$(window).load(function() {
+    window.$(window).on("load", function() {
       window.$(".flexslider").flexslider({
         animation: "slide",
         start: function(slider) {
@@ -21,7 +24,8 @@ const PopularMovie = () => {
         }
       });
     });
-  });
+  }, []);
+
   useEffect(() => {
     window.$(document).ready(function() {
       window.$(".w3_play_icon,.w3_play_icon1,.w3_play_icon2").magnificPopup({

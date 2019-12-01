@@ -1,4 +1,6 @@
 import React from "react";
+import StarRatings from "react-star-ratings";
+import { IMAGE_BASE_URL, BACKDROP_SIZE } from "../constants/the-movie-db-api";
 
 const SliderCard = ({
   imgUrl,
@@ -7,13 +9,24 @@ const SliderCard = ({
   release,
   linkVideo,
   unique,
+  voteRate,
   ...rest
 }) => {
+  // function changeRating(newRating, name) {
+  //   this.setState({
+  //     rating: newRating
+  //   });
+  // }
+
   return (
     <div className="agile_tv_series_grid">
       <div className="col-md-6 agile_tv_series_grid_left">
         <div className="w3ls_market_video_grid1">
-          <img src={imgUrl} alt=" " className="img-responsive" />
+          <img
+            src={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${imgUrl}`}
+            alt=" "
+            className="img-responsive"
+          />
           <a className="w3_play_icon" href={"#small-dialog" + unique}>
             <span
               className="glyphicon glyphicon-play-circle"
@@ -34,7 +47,7 @@ const SliderCard = ({
           <span>
             Date of Release<label>:</label>
           </span>{" "}
-          {release}{" "}
+          {release}
         </p>
         <p className="fexi_header_para">
           <span>
@@ -43,27 +56,22 @@ const SliderCard = ({
           <a href="genres.html">Drama</a> |<a href="genres.html">Adventure</a> |
           <a href="genres.html">Family</a>
         </p>
-        <p className="fexi_header_para fexi_header_para1">
+        <div className="fexi_header_para fexi_header_para1">
           <span>
             Star Rating<label>:</label>
           </span>
-          <a href="#">
-            <i className="fa fa-star" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-star" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-star-half-o" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-star-o" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-star-o" aria-hidden="true"></i>
-          </a>
-        </p>
+          <StarRatings
+            rating={2.5}
+            starRatedColor="yellow"
+            starHoverColor="orange"
+            starDimension="15px"
+            // changeRating={changeRating}
+            numberOfStars={5}
+            name="rating"
+          />
+        </div>
       </div>
+      {/* Trailer Video */}
       <div id={"small-dialog" + unique} className="mfp-hide">
         <iframe title={unique} src={linkVideo}></iframe>
       </div>

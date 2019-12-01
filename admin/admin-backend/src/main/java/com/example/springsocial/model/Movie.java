@@ -1,8 +1,6 @@
 package com.example.springsocial.model;
 
 import lombok.*;
-import org.springframework.hateoas.ResourceSupport;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,23 +18,32 @@ public class Movie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "title", nullable = false, length = 255)
+
+    @Column(name = "title", nullable = false, length = 300)
     private String title;
-    @Column(name = "status", length = 45)
-    private String status;
-    @Column(name = "runtime")
+
     private int runtime;
+
     @Column(name = "release_date")
     @Temporal(TemporalType.DATE)
     private Date release_date;
-    @Column(name = "description", length = 1000)
-    private String description;
-    @Column(name = "poster_path", length = 100)
-    private String poster_path;
-    @Column(name = "vote_average")
+
+    @Column(name = "overview", length = 1000)
+    private String overview;
+
     private float vote_average;
-    @Column(name = "production_countries")
+
     private String production_countries;
+
+    private float popularity;
+
+    private String language;
+
+    private String poster_path;
+
+    private String backdrop_path;
+
+    private long views;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @ToString.Exclude

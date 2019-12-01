@@ -2,7 +2,6 @@ package com.example.springsocial.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.springframework.hateoas.ResourceSupport;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -20,11 +19,12 @@ public class Genre implements Serializable {
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "genres")
-    private Set<Movie> post = new HashSet<>();
-
+    private Set<Movie> movies = new HashSet<>();
 
 }
