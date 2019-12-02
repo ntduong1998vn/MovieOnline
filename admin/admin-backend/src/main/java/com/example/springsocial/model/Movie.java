@@ -1,9 +1,12 @@
 package com.example.springsocial.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,4 +57,8 @@ public class Movie implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     Set<Genre> genres;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie",fetch = FetchType.LAZY)
+    Set<MovieCaster> casters ;
 }

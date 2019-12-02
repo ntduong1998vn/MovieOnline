@@ -1,6 +1,7 @@
 package com.example.springsocial.service;
 
 import com.example.springsocial.model.Genre;
+import com.example.springsocial.model.Movie;
 import com.example.springsocial.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,6 +60,5 @@ public class GenreServiceImpl implements GenreService {
     public List<Genre> findByName(String name) {
         return genreRepository.findByNameLike(name);
     }
-
 
 }

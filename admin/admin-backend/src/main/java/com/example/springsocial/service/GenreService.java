@@ -2,6 +2,7 @@ package com.example.springsocial.service;
 
 
 import com.example.springsocial.model.Genre;
+import com.example.springsocial.model.Movie;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

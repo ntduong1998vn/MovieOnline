@@ -21,22 +21,19 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    @Autowired
-    private GenreRepository genreRepository;
-
     @Override
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
     @Override
-    public Page<Movie> getTopView(int page,int limit) {
+    public Page<Movie> getTopView(int page, int limit) {
         Pageable pageable = PageRequest.of(page, limit, Sort.by("views").descending());
-        return  movieRepository.findAll(pageable);
+        return movieRepository.findAll(pageable);
     }
 
     @Override
-    public Page<Movie> getPopularMovies(int page,int limit) {
+    public Page<Movie> getPopularMovies(int page, int limit) {
         Pageable pageable = PageRequest.of(page, limit, Sort.by("popularity").descending());
         return movieRepository.findAll(pageable);
     }
@@ -48,17 +45,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Optional<Movie> findById(int id) {
-        return Optional.empty();
+        return movieRepository.findById(id);
     }
 
     @Override
     public Page<Movie> getMoviesByGenreId(int id, int page, int limit) {
-        Optional<Genre> ks = genreRepository.findById(id);
-        if(ks.isPresent()){
-            Genre genre = ks.get();
-            Set<Movie> ls = genre.getMovies();
-
-        }
+        return movieRepository.findMoviesByGenreId(id, PageRequest.of(page, limit));
     }
 
     @Override
