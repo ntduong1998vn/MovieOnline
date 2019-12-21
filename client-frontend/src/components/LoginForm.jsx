@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 
 const LoginForm = props => {
   const [formData, setForm] = useState({ email: "", password: "" });
-  // const [errors, setErrors] = useState({});
 
   function onSubmit(e) {
     e.preventDefault();
@@ -20,6 +19,7 @@ const LoginForm = props => {
     //       "Oops! Something went wrong. Please try again!"
     //   );
     // });
+    
   }
 
   function onChange(e) {

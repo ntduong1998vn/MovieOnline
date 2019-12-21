@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { login } from "../utils/AuthAPI";
-import { ACCESS_TOKEN } from "../constants/auth";
+import { ACCESS_TOKEN, USER_INFOR } from "../constants/auth";
 import { getCurrentUser } from "../utils/AuthAPI";
 
 export const AuthContext = React.createContext();
@@ -37,6 +37,7 @@ export default class AuthProvider extends Component {
   loadCurrentUser() {
     return getCurrentUser().then(response => {
       console.log(response);
+      localStorage.setItem(USER_INFOR, JSON.stringify(response));
       this.setState({
         isAuthenticate: true,
         currentUser: response

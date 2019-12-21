@@ -1,0 +1,31 @@
+.custom {
+  button {
+    background-color: #ff8d1b;
+    border: none;
+    padding: 10px 0;
+  }
+  ul li {
+    a {
+      // background: hotpink;
+    }
+  }
+}
+
+.dropdown-menu {
+  right: 0px;
+  left: unset;
+  min-width: 270px;
+  .user--avatar {
+    float: left;
+    margin: 10px;
+  }
+  ul {
+    margin-left: 100px;
+    li {
+      display: block;
+      a {
+        padding: 6px 10px;
+      }
+    }
+  }
+}

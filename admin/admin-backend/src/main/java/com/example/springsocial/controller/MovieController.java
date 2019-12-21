@@ -2,8 +2,6 @@ package com.example.springsocial.controller;
 
 
 import com.example.springsocial.model.Movie;
-import com.example.springsocial.service.GenreService;
-import com.example.springsocial.service.GenreServiceImpl;
 import com.example.springsocial.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,29 +25,42 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     List<Movie> all() {
         List<Movie> rs = movieService.findAll();
         return movieService.findAll();
     }
 
+    @GetMapping("/")
+    ResponseEntity<?> getListByPage(@RequestParam(name = "page") int page, @RequestParam(name = "size", defaultValue = "24") int size) {
+        Page<Movie> rs = movieService.findAll(page, size);
+        System.out.println("****************************************************");
+        System.out.println("Page , Size : " + page + " " + size);
+        return ResponseEntity.ok(rs);
+    }
+
     @GetMapping("/{id}")
     Optional<Movie> getOne(@PathVariable int id) {
-        System.out.println("******************* ID: "+id+" ****************************");
+        System.out.println("******************* ID: " + id + " ****************************");
         return movieService.findById(id);
     }
 
+    //    @GetMapping("/{id}/link")
+//    List<LinkMovie> getLinks(@PathVariable int id) {
+//        System.out.println("******************* ID: "+id+" ****************************");
+//        return linkService.findById();
+//    }
     @GetMapping("/topview")
     Page<Movie> getTopView(@RequestParam(defaultValue = "12") int limit, @RequestParam(defaultValue = "0") int page) {
         return movieService.getTopView(page, limit);
     }
 
-    @GetMapping("/genre/{id}")
-    Page<Movie> getMoviesByGenreId(@PathVariable(required = true) int id,
-                                   @RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "18") int limit) {
-        System.out.println("*********** ID: "+id+" *************");
-        return movieService.getMoviesByGenreId(id,page,limit);
+    @GetMapping("/genre")
+    Page<Movie> getMoviesByGenreId(@RequestParam(name = "id", required = true) int id,
+                                   @RequestParam(name = "page", defaultValue = "0") int page,
+                                   @RequestParam(name = "size", defaultValue = "18") int size) {
+        System.out.println("*********** ID: " + id + " *************");
+        return movieService.getMoviesByGenreId(id, page, size);
     }
 
     @GetMapping("/popular")

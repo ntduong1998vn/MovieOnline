@@ -1,23 +1,42 @@
-import React, { Component } from "react";
-import { API_URL, API_KEY } from "../config";
-import Navigation from "../components/Navigation";
+import React, { Component, useState } from "react";
 import CommentPane from "../components/CommentPane";
 import CustomCarousel from "../components/CustomCarousel";
+import VideoPlayer from "../components/VideoPlayer";
+import { Breadcrumb } from "react-bootstrap";
+import { getOneMovieById } from "../utils/MovieAPI";
+import Alert from "react-s-alert";
+import { Media } from "react-bootstrap";
+import CommentForm from "../components/CommentForm";
 
 class Movie extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movie: {},
+      content: ""
+    };
+  }
+
+  componentDidMount() {
+    let movieId = this.props.match.params.movieId;
+    getOneMovieById(movieId)
+      .then(result => this.setState({ movie: result }))
+      .catch(err =>
+        console.log("Component Movie , can't load infor movie ! ", err)
+      );
+  }
 
   render() {
+    const { movie } = this.state;
     return (
       <div className="single-page-agile-main">
         <div className="container">
           {/* <!-- /w3l-medile-movies-grids --> */}
           <div className="agileits-single-top">
-            <ol className="breadcrumb">
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li className="active">Single</li>
-            </ol>
+            <Breadcrumb>
+              <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
+              <Breadcrumb.Item active>{movie.title}</Breadcrumb.Item>
+            </Breadcrumb>
           </div>
           <div className="single-page-agile-info">
             {/* <!-- /movie-browse-agile --> */}
@@ -25,29 +44,17 @@ class Movie extends Component {
               <div className="col-sm-8 single-left">
                 <div className="song">
                   <div className="song-info">
-                    <h3>THE LEGEND OF TARZAN - Official Trailer 2</h3>
+                    <h3>{`Phim ${movie.title}`}</h3>
                   </div>
                   <div className="video-grid-single-page-agileits">
-                    <div style={{ position: 'relative', overflow: 'hidden', paddingBottom: '56.25%' }}>
-                      <iframe 
-                      src="https://cdn.jwplayer.com/players/5h7bQYQZ-T0wXAmi0.html"
-                      width="100%" 
-                      height="100%" 
-                      frameBorder={0} 
-                      scrolling="auto" 
-                      title="Btp Sb L1 U06 002-sub-text" 
-                      style={{ position: 'absolute' }} allowFullScreen>
-                      </iframe>
-                    </div>
-
-
+                    <VideoPlayer link="https://cdn.jwplayer.com/players/BAktIdPo-nWXSInFW.html" />
                   </div>
                 </div>
 
                 <div className="clearfix"> </div>
 
                 <div className="all-comments">
-                  <div className="all-comments-info">
+                  {/* <div className="all-comments-info">
                     <p>Comments</p>
                     <div className="agile-info-wthree-box">
                       <form>
@@ -57,11 +64,31 @@ class Movie extends Component {
                         <div className="clearfix"> </div>
                       </form>
                     </div>
+                  </div> */}
+                  <div className="all-comments-info">
+                    <p>Bình luận</p>
+                    <div className="agile-info-wthree-box">
+                      <Media>
+                        <Media.Left>
+                          <img
+                            src="https://lh6.googleusercontent.com/-CDVxvPvmnIs/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3re-xaZRccNeekUjIQ_f5qggAiOgoQ/photo.jpg"
+                            alt="thumbnail"
+                            height="50"
+                            width="50"
+                          />
+                        </Media.Left>
+                        <Media.Body>
+                          <Media.Heading>Nội dung</Media.Heading>
+                          <CommentForm movieId={movie.id} />
+                        </Media.Body>
+                      </Media>
+                    </div>
                   </div>
 
                   <CommentPane />
                 </div>
               </div>
+
               <div className="col-md-4 single-right">
                 <h3>Up Next</h3>
                 <div className="single-grid-right">
@@ -86,7 +113,6 @@ class Movie extends Component {
                     <div className="clearfix"> </div>
                   </div>
 
-
                   <div className="single-right-grids">
                     <div className="col-md-4 single-right-grid-left">
                       <a href="single.html">
@@ -110,9 +136,9 @@ class Movie extends Component {
                   </div>
                 </div>
               </div>
-
               <div className="clearfix"> </div>
             </div>
+
             <div className="w3_agile_banner_bottom_grid">
               <CustomCarousel />
             </div>

@@ -16,6 +16,7 @@ const Comment = ({ name, avatar, content }) => {
     </Media>
   );
 };
+
 const CommentPane = () => {
   return (
     <div className="media-grids">

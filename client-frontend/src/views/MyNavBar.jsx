@@ -1,7 +1,43 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-const MyNavBar = () => {
+const MultiColumn = ({ data }) => {
+  const column = (data.length - (data.length % 6)) / 6;
+  const items = [];
+
+  for (let i = 0; i < column; i++) {
+    let children = [];
+    for (let j = 0; j < 6; j++) {
+      // Kiem tra
+      if (i * 6 + j >= data.length) break;
+      //
+      const element = data[i * 6 + j];
+      children.push(
+        <li>
+          <Link
+            key={element.id}
+            to={{
+              pathname: "/genre",
+              search: `?id=${element.id}`,
+              state: { element }
+            }}
+          >
+            {element.name}{" "}
+          </Link>
+        </li>
+      );
+    }
+
+    items.push(
+      <div className="col-sm-4">
+        <ul className="multi-column-dropdown">{children}</ul>
+      </div>
+    );
+  }
+  return <React.Fragment>{items}</React.Fragment>;
+};
+
+const MyNavBar = ({ genres, ...rest }) => {
   return (
     <div className="movies_nav">
       <div className="container">
@@ -26,8 +62,8 @@ const MyNavBar = () => {
           >
             <nav>
               <ul className="nav navbar-nav">
-                <li className="active">
-                  <Link to="/">Home</Link>
+                <li>
+                  <Link to="/">Trang chủ</Link>
                 </li>
                 <li className="dropdown">
                   <a
@@ -35,96 +71,25 @@ const MyNavBar = () => {
                     className="dropdown-toggle"
                     data-toggle="dropdown"
                   >
-                    Genres <b className="caret"></b>
+                    Thể loại <b className="caret"></b>
                   </a>
                   <ul className="dropdown-menu multi-column columns-3">
                     <li>
-                      <div className="col-sm-4">
-                        <ul className="multi-column-dropdown">
-                          <li>
-                            <Link to="/genres">Action</Link>
-                          </li>
-                          <li>
-                            <a href="genres.html">Biography</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Crime</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Family</a>
-                          </li>
-                          <li>
-                            <a href="horror.html">Horror</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Romance</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Sports</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">War</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="col-sm-4">
-                        <ul className="multi-column-dropdown">
-                          <li>
-                            <a href="genres.html">Adventure</a>
-                          </li>
-                          <li>
-                            <a href="comedy.html">Comedy</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Documentary</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Fantasy</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Thriller</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="col-sm-4">
-                        <ul className="multi-column-dropdown">
-                          <li>
-                            <a href="genres.html">Animation</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Costume</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Drama</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">History</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Musical</a>
-                          </li>
-                          <li>
-                            <a href="genres.html">Psychological</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="clearfix"></div>
+                      <MultiColumn data={genres} />
                     </li>
                   </ul>
                 </li>
                 <li>
                   <a href="series.html">tv - series</a>
                 </li>
-                <li>
-                  <a href="news.html">news</a>
-                </li>
+
                 <li className="dropdown">
                   <a
                     href="#"
                     className="dropdown-toggle"
                     data-toggle="dropdown"
                   >
-                    Country <b className="caret"></b>
+                    Quốc gia <b className="caret"></b>
                   </a>
                   <ul className="dropdown-menu multi-column columns-3">
                     <li>
@@ -180,9 +145,7 @@ const MyNavBar = () => {
                     </li>
                   </ul>
                 </li>
-                <li>
-                  <Link to="/user">User</Link>
-                </li>
+
                 <li>
                   <a href="list.html">A - z list</a>
                 </li>

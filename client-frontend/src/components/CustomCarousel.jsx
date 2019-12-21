@@ -62,7 +62,7 @@ const Item = ({ imgUrl, movieName, release, isNew }) => {
 
 const CustomCarousel = () => {
   return (
-    <div id="owl-demo" class="owl-carousel owl-theme">
+    <div id="owl-demo" className="owl-carousel owl-theme">
       {GenreMovieArray1.map((movie, index) => {
         return (
           <Item

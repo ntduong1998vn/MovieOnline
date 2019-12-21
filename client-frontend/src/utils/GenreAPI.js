@@ -17,23 +17,10 @@ const request = async options => {
     return json;
 };
 
-export function getTopView() {
+export function getGenresAll() {
     return request({
-        url: API_BASE_URL + "/api/movies/topview",
-        method: "GET"
+        url: API_BASE_URL + "/api/genres/",
+        method: "GET",
     });
 }
 
-export function getMovieListByGenreId(id,page) {
-    return request({
-        url: `${API_BASE_URL}/api/movies/genre?id=${id}&page=${page}&size=2`,
-        method: "GET"
-    })
-}
-
-export function getOneMovieById(id) {
-    return request({
-        url: `${API_BASE_URL}/api/movies/${id}`,
-        method: "GET"
-    })
-}

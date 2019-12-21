@@ -8,13 +8,12 @@ const Home = () => {
   const [topViewList, setTopView] = useState([]);
 
   useEffect(() => {
+    // Get Movie TopView
     getTopView()
       .then(response => {
         setTopView(response.content);
       })
       .catch(err => console.log("Get TopView Error :", err));
-
-    return () => console.log("Tat");
   }, []);
 
   return (

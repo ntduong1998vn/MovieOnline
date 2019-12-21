@@ -41,5 +41,6 @@ public class User {
     private String providerId;
 
     @JsonIgnore
+    @Column(name = "role",columnDefinition = "varchar(10) default 'ROLE_USER' ")
     private String role;
 }

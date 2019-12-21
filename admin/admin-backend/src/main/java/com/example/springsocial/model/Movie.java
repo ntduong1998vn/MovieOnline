@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -61,4 +59,12 @@ public class Movie implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "movie",fetch = FetchType.LAZY)
     Set<MovieCaster> casters ;
+
+    @OneToMany(mappedBy = "link_movie",fetch = FetchType.LAZY)
+    Set<LinkMovie> links;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie_comment",fetch = FetchType.LAZY)
+    Set<Comment> comments;
+
 }

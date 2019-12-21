@@ -6,44 +6,68 @@ import Genres from "./views/Genres";
 import Home from "./views/Home";
 import Movie from "./views/Movie"
 import NotFound from "./components/NotFound"
-import Alert from 'react-s-alert'
-import "react-s-alert/dist/s-alert-default.css";
-import "react-s-alert/dist/s-alert-css-effects/slide.css";
 import { Switch, Route } from "react-router-dom";
 import withContext from './ContextAuth/Context_HOC'
 import User from "./views/UserProfile"
-
+import { getGenresAll } from "./utils/GenreAPI";
+import { ACCESS_TOKEN } from './constants/auth'
+import "react-s-alert/dist/s-alert-css-effects/slide.css";
+import "react-s-alert/dist/s-alert-default.css";
+import Alert from 'react-s-alert'
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      genreList: []
+    }
+    this.setUpHeader = this.setUpHeader.bind(this);
+  }
 
   componentDidMount() {
-    this.props.context.loadCurrentUser().catch(error => {
-      console.log("Error Load User: ", error);
-    });
+    this.setUpHeader();
+    if (localStorage.getItem(ACCESS_TOKEN) != null) {
+      this.props.context.loadCurrentUser().catch(error => {
+        console.log("Error Load User: ", error);
+      });
+    }
+  }
+  
+  // Get data for Header
+  setUpHeader() {
+    getGenresAll()
+      .then(result => {
+        this.setState({ genreList: result });
+      })
+      .catch(err => console.log("Get Genre List Error : ", err));
   }
 
   render() {
+    const { genreList } = this.state;
+
     return (
       <React.Fragment>
         <Header />
-        <MyNavBar />
+        <MyNavBar genres={genreList} />
 
         <Switch >
           <Route path="/" component={Home} exact />
-          <Route path="/genres" component={Genres} />
-          <Route path="/movie/:movieId" component={Movie} />
+          <Route path="/genre" component={Genres} />
+          <Route path="/movie/:movieId" render={props => <Movie {...props} />} />
           <Route path="/user" component={User} />
           <Route component={NotFound} />
         </Switch>
 
         <Footer />
+
         <Alert
           stack={{ limit: 3 }}
           timeout={3000}
           position="top-right"
           effect="slide"
           offset={65}
+          html={true}
         />
       </React.Fragment>
     );

@@ -1,0 +1,29 @@
+.custom button {
+  background-color: #ff8d1b;
+  border: none;
+  padding: 10px 0;
+}
+
+.custom-dropdown-menu {
+  right: 0px;
+  left: unset;
+  min-width: 270px;
+}
+
+.custom-dropdown-menu .user--avatar {
+  float: left;
+  margin: 10px;
+}
+
+.custom-dropdown-menu ul {
+  margin-left: 100px;
+}
+
+.custom-dropdown-menu ul li {
+  display: block;
+}
+
+.custom-dropdown-menu ul li a {
+  padding: 6px 10px;
+}
+/*# sourceMappingURL=userButton.css.map */
