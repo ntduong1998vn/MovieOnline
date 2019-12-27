@@ -1,11 +1,10 @@
 package com.example.springsocial.controller;
 
-
+import com.example.springsocial.dto.MovieDTO;
 import com.example.springsocial.model.Movie;
-import com.example.springsocial.service.MovieServiceImpl;
+import com.example.springsocial.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +17,11 @@ import java.util.Optional;
 @RequestMapping("/api/movies")
 public class MovieController {
 
-    private MovieServiceImpl movieService;
+
+    private MovieService movieService;
 
     @Autowired
-    public MovieController(MovieServiceImpl movieService) {
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
 
@@ -45,11 +45,6 @@ public class MovieController {
         return movieService.findById(id);
     }
 
-    //    @GetMapping("/{id}/link")
-//    List<LinkMovie> getLinks(@PathVariable int id) {
-//        System.out.println("******************* ID: "+id+" ****************************");
-//        return linkService.findById();
-//    }
     @GetMapping("/topview")
     Page<Movie> getTopView(@RequestParam(defaultValue = "12") int limit, @RequestParam(defaultValue = "0") int page) {
         return movieService.getTopView(page, limit);
@@ -71,18 +66,16 @@ public class MovieController {
     @PostMapping("/")
     public ResponseEntity<Movie> saveProduct(@RequestBody Movie movie, UriComponentsBuilder builder) {
         movieService.save(movie);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/api/movies/{id}").buildAndExpand(movie.getId()).toUri());
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(builder.path("/api/movies/{id}").buildAndExpand(movie.getId()).toUri());
         return new ResponseEntity<>(movie, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Movie> update(@RequestBody Movie movie) {
-        Movie result = movieService.save(movie);
-        if (result != null)
-            return new ResponseEntity<>(movie, HttpStatus.OK);
-
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @PutMapping("/{movieId}")
+    public ResponseEntity<String> update(@PathVariable int movieId,@RequestBody MovieDTO movie) {
+        boolean result = movieService.update(movieId,movie);
+        if (result)   return ResponseEntity.ok("Update movie successfully!");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error!");
     }
 
     @DeleteMapping("/{id}")
@@ -94,4 +87,5 @@ public class MovieController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

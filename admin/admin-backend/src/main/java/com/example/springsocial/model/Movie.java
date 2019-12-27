@@ -1,10 +1,12 @@
 package com.example.springsocial.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,6 +36,7 @@ public class Movie implements Serializable {
 
     private float vote_average;
 
+    @JsonProperty("countries")
     private String production_countries;
 
     private float popularity;
@@ -54,17 +57,30 @@ public class Movie implements Serializable {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    Set<Genre> genres;
+    Set<Genre> genres = new HashSet<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "movie",fetch = FetchType.LAZY)
-    Set<MovieCaster> casters ;
+    @OneToMany(mappedBy = "movie_cast",fetch = FetchType.LAZY)
+    Set<MovieCast> casters = new HashSet<>() ;
 
     @OneToMany(mappedBy = "link_movie",fetch = FetchType.LAZY)
-    Set<LinkMovie> links;
+    Set<LinkMovie> links = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "movie_comment",fetch = FetchType.LAZY)
-    Set<Comment> comments;
+    Set<Comment> comments = new HashSet<>();
 
+    public void addGenre(Genre genre){
+        this.genres.add(genre);
+        genre.getMovies().add(this);
+    }
+
+    public void removeGenre(Genre genre){
+        this.genres.remove(genre);
+//        genre.getMovies().remove(this);
+    }
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+    }
 }

@@ -7,7 +7,7 @@ import MovieCard from "../components/MovieCard";
 import CustomCarousel from "../components/CustomCarousel";
 import queryString from "query-string";
 import { getMovieListByGenreId } from "../utils/MovieAPI";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
 
 const Genres = props => {
@@ -17,7 +17,11 @@ const Genres = props => {
 
   useEffect(() => {
     const parsed = queryString.parse(props.location.search);
-    getMovieListByGenreId(parsed.id, parsed.page)
+    let { id, page } = parsed;
+    if (id === undefined) id = 1;
+    if (page === undefined) page = 0;
+
+    getMovieListByGenreId(id, page)
       .then(result => {
         setMovieList(result.content);
         setTotalPage(result.totalPages);
@@ -26,6 +30,7 @@ const Genres = props => {
       .catch(err => console.log(err));
   }, [props.location.search]);
 
+  // Event when click PageNavigation
   function handlePageClick(number) {
     const parsed = queryString.parse(props.location.search);
 
@@ -64,7 +69,7 @@ const Genres = props => {
                 <div className="agileits-single-top">
                   <ol className="breadcrumb">
                     <li>
-                      <Link to="/">Home</Link>
+                      <Link to="/">Trang chủ</Link>
                     </li>
                     <li className="active">
                       {props.location.state.element.name}
@@ -97,27 +102,13 @@ const Genres = props => {
                         movieId={movie.id}
                         imgUrl={movie.poster_path}
                         movieName={movie.title}
-                        isNew={true}
+                        isNew={false}
                         release={2016}
                       />
                     );
                 })}
                 <div className="clearfix"> </div>
               </div>
-              {/* <div className="browse-inner-come-agile-w3">
-                {GenreMovieArray2.map((movie, index) => {
-                  return (
-                    <MovieCard
-                      imgUrl={movie.imgUrl}
-                      movieName={movie.movieName}
-                      release={movie.release}
-                      isNew={movie.isNew}
-                      key={index}
-                    />
-                  );
-                })}
-                <div className="clearfix"> </div>
-              </div> */}
             </div>
           </div>
           <div className="blog-pagenat-wthree">

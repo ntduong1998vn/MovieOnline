@@ -13,7 +13,7 @@ const PopularMovie = () => {
     script.src = "assets/js/jquery.flexslider.js";
     script.defer = true;
     flexEl.current.appendChild(script);
-  });
+  }, []);
 
   useEffect(() => {
     window.$(window).on("load", function() {
@@ -24,6 +24,10 @@ const PopularMovie = () => {
         }
       });
     });
+    return () => {
+      window.$(window).off("load");
+      // eslint-disable-next-line no-restricted-globals
+    };
   }, []);
 
   useEffect(() => {

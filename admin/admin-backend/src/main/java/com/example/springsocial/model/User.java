@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -43,4 +44,8 @@ public class User {
     @JsonIgnore
     @Column(name = "role",columnDefinition = "varchar(10) default 'ROLE_USER' ")
     private String role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user_comment")
+    Set<Comment> comments;
 }

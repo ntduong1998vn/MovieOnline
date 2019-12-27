@@ -9,6 +9,7 @@ import com.example.springsocial.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -83,19 +84,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
-                .and()
+                    .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .csrf()
-                .disable()
-                .formLogin()
-                .disable()
-                .httpBasic()
-                .disable()
+                    .and()
+                .csrf().disable()
+                .formLogin().disable()
+                .httpBasic().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
-                .and()
+                    .and()
                 .authorizeRequests()
                 .antMatchers("/",
                         "/error",
@@ -110,23 +108,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/auth/**", "/oauth2/**")
                     .permitAll()
-                .antMatchers("/api/**")
-                    //.authenticated()
+                .antMatchers(HttpMethod.GET,"/api/movies/**","/api/genres/**","/api/comment/**","/api/cast/**")
                     .permitAll()
+                .antMatchers(HttpMethod.DELETE,"/api/**")
+                    .permitAll()
+                .antMatchers(HttpMethod.POST,"/api/movies/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/movies/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/movies/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/genres/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE,"/api/genres/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/genres/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/comment/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/comment/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/comment/**").hasRole("ADMIN")
                 .anyRequest()
                     .authenticated()
-                .and()
-                    .oauth2Login()
+                    .and()
+                .oauth2Login()
                 .authorizationEndpoint()
-                    .baseUri("/oauth2/authorize")
+                .baseUri("/oauth2/authorize")
                 .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-                    .and()
-                .redirectionEndpoint()
-                    .baseUri("/oauth2/callback/*")
                 .and()
-                    .userInfoEndpoint()
+                .redirectionEndpoint()
+                .baseUri("/oauth2/callback/*")
+                .and()
+                .userInfoEndpoint()
                 .userService(customOAuth2UserService)
-                    .and()
+                .and()
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler);
 

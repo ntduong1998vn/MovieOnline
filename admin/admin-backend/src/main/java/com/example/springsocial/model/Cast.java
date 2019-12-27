@@ -1,22 +1,17 @@
 package com.example.springsocial.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Entity(name = "cast")
-@Getter
-@Setter
-@AllArgsConstructor
+@Entity
+@Table(name = "cast")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cast {
 
     @Id
@@ -28,7 +23,9 @@ public class Cast {
     private String profile_path;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cast",fetch = FetchType.LAZY)
-    List<MovieCaster> movies = new ArrayList<>();
+    @OneToMany(mappedBy = "cast_movie",fetch = FetchType.LAZY)
+    List<MovieCast> movies = new ArrayList<>();
+
+
 
 }

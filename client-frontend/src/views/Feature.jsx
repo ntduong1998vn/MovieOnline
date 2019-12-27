@@ -1,6 +1,5 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
-import { movieArray } from "../variable";
 
 const Feature = ({ feature, recently,topview }) => {
   return (

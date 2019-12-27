@@ -3,10 +3,10 @@ package com.example.springsocial.controller;
 import com.example.springsocial.exception.BadRequestException;
 import com.example.springsocial.model.AuthProvider;
 import com.example.springsocial.model.User;
-import com.example.springsocial.payload.ApiResponse;
-import com.example.springsocial.payload.AuthResponse;
-import com.example.springsocial.payload.LoginRequest;
-import com.example.springsocial.payload.SignUpRequest;
+import com.example.springsocial.dto.ApiResponse;
+import com.example.springsocial.dto.AuthResponse;
+import com.example.springsocial.dto.LoginRequest;
+import com.example.springsocial.dto.SignUpRequest;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")

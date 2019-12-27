@@ -40,18 +40,18 @@ const SliderCard = ({
         <p className="fexi_header_para">
           <span className="conjuring_w3">
             Story Line<label>:</label>
-          </span>{" "}
+          </span>
           {storyLine}
         </p>
         <p className="fexi_header_para">
           <span>
             Date of Release<label>:</label>
-          </span>{" "}
+          </span>
           {release}
         </p>
         <p className="fexi_header_para">
           <span>
-            Genres<label>:</label>{" "}
+            Genres<label>:</label>
           </span>
           <a href="genres.html">Drama</a> |<a href="genres.html">Adventure</a> |
           <a href="genres.html">Family</a>

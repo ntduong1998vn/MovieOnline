@@ -8,10 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     @Query("select u from Movie u join u.genres p where p.id = :id")
     Page<Movie> findMoviesByGenreId(int id, Pageable pageable);
+
+    @Query("select g.id from Movie m inner join m.genres g where m.id = :movieId")
+    List<Integer> getGenreIdList(int movieId);
 }

@@ -16,10 +16,9 @@ public class Comment  implements Serializable {
     @Id
     int id;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    User user_comment;
 
     @JsonIgnore
     @ManyToOne

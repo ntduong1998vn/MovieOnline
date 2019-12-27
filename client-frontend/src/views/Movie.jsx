@@ -13,8 +13,10 @@ class Movie extends Component {
     super(props);
     this.state = {
       movie: {},
-      content: ""
+      content: "",
+      loading: true
     };
+    this.refreshCommentPane = this.refreshCommentPane.bind(this);
   }
 
   componentDidMount() {
@@ -26,8 +28,12 @@ class Movie extends Component {
       );
   }
 
+  refreshCommentPane() {
+    this.setState({ loading: true });
+  }
+
   render() {
-    const { movie } = this.state;
+    const { movie, loading } = this.state;
     return (
       <div className="single-page-agile-main">
         <div className="container">
@@ -79,13 +85,19 @@ class Movie extends Component {
                         </Media.Left>
                         <Media.Body>
                           <Media.Heading>Nội dung</Media.Heading>
-                          <CommentForm movieId={movie.id} />
+                          <CommentForm
+                            movieId={movie.id}
+                            loading={this.refreshCommentPane}
+                          />
                         </Media.Body>
                       </Media>
                     </div>
                   </div>
 
-                  <CommentPane />
+                  <CommentPane
+                    loading={loading}
+                    movieId={this.props.match.params.movieId}
+                  />
                 </div>
               </div>
 

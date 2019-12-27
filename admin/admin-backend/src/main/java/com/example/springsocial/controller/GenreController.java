@@ -1,81 +1,78 @@
 package com.example.springsocial.controller;
 
-
 import com.example.springsocial.model.Genre;
-import com.example.springsocial.service.GenreService;
+import com.example.springsocial.dto.GenreRequest;
+import com.example.springsocial.service.IGenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/api/genres")
 public class GenreController {
 
     @Autowired
-    private GenreService service;
+    private IGenreService service;
 
     @GetMapping("/")
     public ResponseEntity<?> getAll() {
         List<Genre> genres = service.findAll();
-
-        return new ResponseEntity<>(genres, HttpStatus.OK);
+        return ResponseEntity.ok(genres);
     }
 
     @PostMapping("/")
-    public HttpEntity save(@RequestBody Genre genre) {
+    public HttpEntity save(@Valid @RequestBody GenreRequest genreRequest) {
+        Genre genre = new Genre();
+        genre.setName(genreRequest.getName());
+
         Genre rs = service.add(genre);
 
         if (rs != null) {
-            return new ResponseEntity<>(rs, HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Successful creation of a resource");
         } else
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error creating resource");
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<Genre> getOne(@PathVariable int id) {
+    public ResponseEntity<?> getOne(@PathVariable int id) {
         Optional<Genre> result = service.findById(id);
         if (result.isPresent()) {
-            return new ResponseEntity<>(result.get(), HttpStatus.OK);
+            return ResponseEntity.ok(result.get());
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Can't find genre with id="+id);
     }
 
-    @PutMapping("/{id}")
-    public HttpEntity<Genre> update(@RequestBody Genre genre) {
-        System.out.println(genre);
-        Genre result = service.update(genre);
-        if (result != null) return new ResponseEntity<>(result, HttpStatus.OK);
-
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @PutMapping("/{genreId}")
+    public ResponseEntity<?> update(@PathVariable int genreId,
+                                    @Valid @RequestBody GenreRequest genreRequest) {
+        Optional<Genre> rs = service.findById(genreId);
+        if(rs.isPresent()){
+            Genre updateGenre = rs.get();
+            updateGenre.setName(genreRequest.getName());
+            Genre result = service.update(updateGenre);
+            if (result != null) return ResponseEntity.ok("Update successfully");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Can't find genre with id="+genreId);
     }
 
-    @DeleteMapping("/{id}")
-    public HttpEntity delete(@PathVariable int id) {
-        System.out.println(id);
-        try {
-            boolean rs = service.delete(id);
-            if(rs)
-            return new ResponseEntity<>(HttpStatus.RESET_CONTENT);
+    @DeleteMapping("/{genreId}")
+    public ResponseEntity<String> delete(@PathVariable int genreId) {
+        boolean result = service.delete(genreId);
+            if(result) return ResponseEntity.ok("Delete successfully!");
 
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed!");
     }
 
     @GetMapping("/search")
-    public HttpEntity searchByName(@RequestParam(name="name") String name){
+    public ResponseEntity<?> searchByName(@RequestParam(name="name") String name){
         List<Genre> result = service.findByName(name);
-        if(result !=null){
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+       return ResponseEntity.ok(result);
     }
+
 }

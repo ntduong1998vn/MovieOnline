@@ -27,4 +27,5 @@ public class Genre implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY,mappedBy = "genres")
     private Set<Movie> movies = new HashSet<>();
 
+
 }

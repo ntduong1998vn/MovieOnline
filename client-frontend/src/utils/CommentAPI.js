@@ -25,9 +25,16 @@ const request = async options => {
 
 export function sendComment(commentForm) {
     return request({
-        url: API_BASE_URL + "/api/comment/add",
+        url: `${API_BASE_URL}/api/comment/`,
         method: "POST",
         body: JSON.stringify(commentForm)
+    });
+}
+
+export function getCommentList(movieId, page) {
+    return request({
+        url: `${API_BASE_URL}/api/comment/${movieId}?page=${page}`,
+        method: "GET",
     });
 }
 

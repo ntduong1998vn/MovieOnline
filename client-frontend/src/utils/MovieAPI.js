@@ -24,9 +24,9 @@ export function getTopView() {
     });
 }
 
-export function getMovieListByGenreId(id,page) {
+export function getMovieListByGenreId(id, page) {
     return request({
-        url: `${API_BASE_URL}/api/movies/genre?id=${id}&page=${page}&size=2`,
+        url: `${API_BASE_URL}/api/movies/genre?id=${id}&page=${page}&size=12`,
         method: "GET"
     })
 }

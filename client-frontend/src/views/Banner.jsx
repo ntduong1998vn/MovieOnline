@@ -4,15 +4,13 @@ import "../assets/js/jquery.slidey.js";
 import "dotdotdot-js";
 
 const Banner = () => {
-  
   useEffect(() => {
-    window.$("#slidey").slidey({
-      interval: 8000,
-      listCount: 5,
-      autoplay: false,
-      showList: true
-    });
-    window.$(document).ready(function() {});
+    // window.$("#slidey").slidey({
+    //   interval: 8000,
+    //   listCount: 5,
+    //   autoplay: false,
+    //   showList: true
+    // });
     // window.$(".slidey-list-description").dotdotdot();
   });
 

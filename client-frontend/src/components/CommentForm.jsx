@@ -6,7 +6,7 @@ import Alert from "react-s-alert";
 const CommentForm = props => {
   const [commentForm, setForm] = useState({
     userId: "",
-    filmId: "",
+    movieId: "",
     content: ""
   });
 
@@ -20,13 +20,14 @@ const CommentForm = props => {
           Alert.success("Thành công!");
         })
         .catch(err => Alert.error(err.message));
+      props.loading();  
     }
   }
 
   function onChange(e) {
     setForm({
       ...commentForm,
-      filmId: props.movieId,
+      movieId: props.movieId,
       userId: props.context.currentUser.id,
       content: e.target.value
     });

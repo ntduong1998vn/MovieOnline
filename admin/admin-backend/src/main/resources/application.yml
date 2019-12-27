@@ -3,6 +3,18 @@ spring:
         url: jdbc:mysql://localhost:3306/filmstore?useSSL=false
         username: root
         password: 123456
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: gcltt10@gmail.com
+      password: bkxsbogdhlnvqnry
+      properties:
+        mail:
+          debug: true
+          smtp:
+            auth: true
+            starttls:
+              enable: true
 
     jpa:
         show-sql: true
