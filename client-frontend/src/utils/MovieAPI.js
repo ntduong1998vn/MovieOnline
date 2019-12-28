@@ -37,3 +37,10 @@ export function getOneMovieById(id) {
         method: "GET"
     })
 }
+
+export function findByTitle(keyword){
+    return request({
+        url:`${API_BASE_URL}/api/movies/search?keyword=${keyword}`,
+        method:"GET"
+    })
+}

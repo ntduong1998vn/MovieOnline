@@ -3,6 +3,7 @@ package com.example.springsocial.controller;
 import com.example.springsocial.dto.MovieDTO;
 import com.example.springsocial.model.Movie;
 import com.example.springsocial.service.MovieService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {
-
 
     private MovieService movieService;
 
@@ -40,9 +40,13 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    Optional<Movie> getOne(@PathVariable int id) {
+    public ResponseEntity<?> getOne(@PathVariable int id) {
         System.out.println("******************* ID: " + id + " ****************************");
-        return movieService.findById(id);
+        Optional<Movie> result = movieService.findById(id);
+        if(result.isPresent()){
+            return ResponseEntity.ok(result.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND!");
     }
 
     @GetMapping("/topview")
@@ -57,6 +61,13 @@ public class MovieController {
         System.out.println("*********** ID: " + id + " *************");
         return movieService.getMoviesByGenreId(id, page, size);
     }
+
+    @GetMapping("/search")
+    ResponseEntity<?> searchByKeyword(@RequestParam(name = "keyword",defaultValue = "") String keyword){
+        List<Movie> result = movieService.findByTitle(keyword);
+        return ResponseEntity.ok(result);
+    }
+
 
     @GetMapping("/popular")
     Page<Movie> getPopularMovies(@RequestParam(defaultValue = "12") int limit, @RequestParam(defaultValue = "0") int page) {

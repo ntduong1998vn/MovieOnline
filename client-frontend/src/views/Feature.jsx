@@ -1,7 +1,7 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
 
-const Feature = ({ feature, recently,topview }) => {
+const Feature = ({ feature, recently, topview }) => {
   return (
     <div className="general">
       <h4 className="latest-text w3_latest_text">Featured Movies</h4>
@@ -58,7 +58,7 @@ const Feature = ({ feature, recently,topview }) => {
             >
               <div className="w3_agile_featured_movies">
                 {feature.map((movie, index) => {
-                  if (index % 9 === 5)
+                  if (index % 6 === 5)
                     return (
                       <React.Fragment>
                         <MovieCard
@@ -67,7 +67,7 @@ const Feature = ({ feature, recently,topview }) => {
                           imgUrl={movie.poster_path}
                           movieName={movie.title}
                           isNew={true}
-                          release={2016}
+                          release={movie.release_date}
                         />
                         <div className="clearfix"> </div>
                       </React.Fragment>
@@ -80,7 +80,7 @@ const Feature = ({ feature, recently,topview }) => {
                         imgUrl={movie.poster_path}
                         movieName={movie.title}
                         isNew={true}
-                        release={2016}
+                        release={movie.release_date}
                       />
                     );
                 })}

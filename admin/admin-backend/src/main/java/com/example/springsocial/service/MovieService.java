@@ -161,9 +161,8 @@ public class MovieService implements IMovieService {
                 movieRepository.save(updateMovie);
                 // Update relationship with Genre entity
                 boolean updateGenresRelationship = updateGenresRelationship(movieId, movieDTO.getGenres());
-                if(updateGenresRelationship) return false;
 
-                return true;
+                return updateGenresRelationship;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 return false;
@@ -178,21 +177,28 @@ public class MovieService implements IMovieService {
         if(!result.isPresent()) return false;
         Set<Genre> movieGenreList = result.get().getGenres();
 
-        List<Genre> addList = genreUpdateList.stream()
+        List<Integer> addList = genreUpdateList.stream()
                 .filter(genre -> movieGenreList.stream().noneMatch(x -> x.getId() == genre.getId()))
-                .(Collectors.toList());
+                .map(Genre::getId)
+                .collect(Collectors.toList());
 
-        List<Genre> removeList = movieGenreList.stream()
+        List<Integer> removeList = movieGenreList.stream()
                 .filter(genre -> genreUpdateList.stream().noneMatch(x -> x.getId() == genre.getId()))
+                .map(Genre::getId)
                 .collect(Collectors.toList());
 
         try {
-//            addGenres(movieId,addList);
-//            removeGenres(movieId,removeList);
+            addGenres(movieId,addList);
+            removeGenres(movieId,removeList);
             return true;
         }catch (DataAccessException e){
             logger.error(e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public List<Movie> findByTitle(String keyword) {
+        return movieRepository.findByTitleName(keyword);
     }
 }

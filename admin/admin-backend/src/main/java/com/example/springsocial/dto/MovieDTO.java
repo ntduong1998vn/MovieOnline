@@ -1,6 +1,5 @@
 package com.example.springsocial.dto;
 
-import com.example.springsocial.model.Comment;
 import com.example.springsocial.model.Genre;
 import com.example.springsocial.model.LinkMovie;
 import com.example.springsocial.model.MovieCast;

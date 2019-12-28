@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import UserButton from "../components/UserButton/UserButton";
 import withContext from "../ContextAuth/Context_HOC";
 import LoginForm from "../components/LoginForm";
+import SearchBox from "../components/SearchBox";
 
 const Header = props => {
   const [show, setShow] = useState(false);
@@ -41,10 +42,7 @@ const Header = props => {
           </a>
         </div>
         <div className="w3_search">
-          <form action="#" method="post">
-            <input type="text" name="Search" placeholder="Search" required="" />
-            <input type="submit" value="Go" />
-          </form>
+          <SearchBox />
         </div>
 
         <div className="w3l_sign_in_register">

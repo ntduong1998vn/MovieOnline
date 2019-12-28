@@ -5,16 +5,16 @@ import MyNavBar from "./views/MyNavBar";
 import Genres from "./views/Genres";
 import Home from "./views/Home";
 import Movie from "./views/Movie"
+import User from "./views/UserProfile"
+import Search from "./views/Search"
 import NotFound from "./components/NotFound"
 import { Switch, Route } from "react-router-dom";
 import withContext from './ContextAuth/Context_HOC'
-import User from "./views/UserProfile"
 import { getGenresAll } from "./utils/GenreAPI";
 import { ACCESS_TOKEN } from './constants/auth'
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
 import "react-s-alert/dist/s-alert-default.css";
 import Alert from 'react-s-alert'
-
 class App extends Component {
 
   constructor(props) {
@@ -33,7 +33,7 @@ class App extends Component {
       });
     }
   }
-  
+
   // Get data for Header
   setUpHeader() {
     getGenresAll()
@@ -56,6 +56,7 @@ class App extends Component {
           <Route path="/genre" component={Genres} />
           <Route path="/movie/:movieId" render={props => <Movie {...props} />} />
           <Route path="/user" component={User} />
+          <Route path="/search" component={Search} />
           <Route component={NotFound} />
         </Switch>
 

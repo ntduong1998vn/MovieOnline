@@ -34,5 +34,6 @@ public interface IMovieService {
 
     public boolean removeGenres(int movieId, List<Integer> deleteList);
 
+    public List<Movie> findByTitle(String keyword);
 
 }
