@@ -35,4 +35,9 @@ public class UserController {
     public void sendMail(@CurrentUser UserPrincipal userPrincipal){
         emailService.sendSimpleMessage("ntduong1998vn@gmail.com","WEBSITE XEM PHIM TRỰC TUYẾN","XÁC NHẬN NÂNG CẤP TÀI KHOẢN VIP THÀNH CÔNG!");
     }
+
+    @GetMapping("/forgetpassword")
+    public void forgetPassword(){
+        emailService.sendSimpleMessage("ntduong1998vn@gmail.com","WEBSITE XEM PHIM TRỰC TUYẾN","MẬT KHẨU CỦA BẠN LÀ PASSWORD");
+    }
 }

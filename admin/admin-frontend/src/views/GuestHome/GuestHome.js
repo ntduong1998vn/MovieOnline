@@ -22,7 +22,7 @@ class GuestHome extends Component {
             </div>
           </div>
           <h1 className="home-title">
-            Spring Boot React OAuth2 Social Login Demo
+            Welcome to Admin page
           </h1>
         </div>
       </div>

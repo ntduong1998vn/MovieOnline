@@ -19,8 +19,10 @@ const CommentForm = props => {
         .then(() => {
           Alert.success("Thành công!");
         })
-        .catch(err => Alert.error(err.message));
-      props.loading();  
+        .catch(err => console.log(err));
+      Alert.success("Thêm thành công");
+      window.location.reload();
+      props.loading();
     }
   }
 

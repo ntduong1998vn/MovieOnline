@@ -139,16 +139,18 @@ class Genre extends Component {
           selectedGenre: null,
           showDialog: !this.state.showDialog
         });
-        this.props.handleClick("tc", 1, "Xoá thành công !");
+        // this.props.handleClick("tc", 1, "Xoá thành công !");
       })
       .catch(error => {
         this.setState({
           selectedGenre: null,
           showDialog: !this.state.showDialog
         });
-        this.props.handleClick("tc", 3, "Xoá thất bại ! " + error.message);
+        // this.props.handleClick("tc", 3, "Xoá thất bại ! " + error.message);
         console.log(error);
       });
+    this.props.handleClick("tc", 1, "Xoá thành công !");
+    window.location.reload();
   };
 
   handleShowAddGenreDialog = () => {

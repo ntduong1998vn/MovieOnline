@@ -34,6 +34,19 @@ export function getCurrentUser() {
   });
 }
 
+export function forgetPassword(){
+  return request({
+    url:API_BASE_URL+"/forgetpassword",
+    method:"GET"
+  })
+}
+export function sendMail(){
+  return request({
+    url:API_BASE_URL+"/sendmail",
+    method:"GET"
+  })
+}
+
 export function login(loginRequest) {
   return request({
     url: API_BASE_URL + "/auth/login",

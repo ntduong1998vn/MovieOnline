@@ -1,6 +1,6 @@
 import React from "react";
 import "./userButton.css";
-
+import { ACCESS_TOKEN } from "../../constants/auth";
 const UserButton = props => {
   return (
     <div className="btn-group">
@@ -36,7 +36,7 @@ const UserButton = props => {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="#" onClick={() => localStorage.removeItem(ACCESS_TOKEN)}>
               <i className="fa fa-sign-out" aria-hidden="true"></i>Thoát
             </a>
           </li>
