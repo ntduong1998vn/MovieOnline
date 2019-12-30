@@ -7,7 +7,7 @@
     "basictable": "^1.0.9",
     "bootstrap": "^3.4.1",
     "dotdotdot-js": "^4.0.10",
-    "jquery": "^2.2.4",
+    "jquery": "^3.4.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.9.0",
     "react": "^16.12.0",
