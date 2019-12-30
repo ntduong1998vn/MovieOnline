@@ -201,4 +201,11 @@ public class MovieService implements IMovieService {
     public List<Movie> findByTitle(String keyword) {
         return movieRepository.findByTitleName(keyword);
     }
+
+    @Override
+    public List<Movie> findByLetterBegin(String letter) {
+        if(letter.contains("0-9"))
+            return movieRepository.findByNumberBegin();
+        return movieRepository.findByLetterBegin(letter);
+    }
 }

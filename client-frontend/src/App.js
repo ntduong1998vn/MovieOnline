@@ -15,6 +15,7 @@ import { ACCESS_TOKEN } from './constants/auth'
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
 import "react-s-alert/dist/s-alert-default.css";
 import Alert from 'react-s-alert'
+import MovieList from "./views/MovieList";
 class App extends Component {
 
   constructor(props) {
@@ -57,6 +58,7 @@ class App extends Component {
           <Route path="/movie/:movieId" render={props => <Movie {...props} />} />
           <Route path="/user" component={User} />
           <Route path="/search" component={Search} />
+          <Route path="/list" component={MovieList} />
           <Route component={NotFound} />
         </Switch>
 

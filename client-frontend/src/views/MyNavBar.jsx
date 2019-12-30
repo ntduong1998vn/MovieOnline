@@ -147,7 +147,7 @@ const MyNavBar = ({ genres, ...rest }) => {
                 </li>
 
                 <li>
-                  <a href="list.html">A - z list</a>
+                  <Link to="/list">Danh sách A-Z</Link>
                 </li>
               </ul>
             </nav>

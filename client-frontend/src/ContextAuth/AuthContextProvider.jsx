@@ -60,4 +60,5 @@ export default class AuthProvider extends Component {
       </AuthContext.Provider>
     );
   }
+  
 }

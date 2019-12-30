@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,4 +37,5 @@ public interface IMovieService {
 
     public List<Movie> findByTitle(String keyword);
 
+    public List<Movie> findByLetterBegin(String letter);
 }

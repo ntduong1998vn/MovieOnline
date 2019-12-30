@@ -3,7 +3,6 @@ package com.example.springsocial.controller;
 import com.example.springsocial.dto.MovieDTO;
 import com.example.springsocial.model.Movie;
 import com.example.springsocial.service.MovieService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -99,4 +98,9 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<Movie>> getListByLetter(@RequestParam(name = "letter",defaultValue = "[0-9]") String letter){
+        List<Movie> result = movieService.findByLetterBegin(letter);
+        return ResponseEntity.ok(result);
+    }
 }

@@ -21,4 +21,10 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     @Query("select m from Movie m where UPPER(m.title) like concat('%',UPPER(:keyword),'%')")
     List<Movie> findByTitleName(String keyword);
+
+    @Query(nativeQuery = true,value="SELECT m.* FROM Movie m where UPPER(m.title)  regexp '^[0-9]'")
+    List<Movie> findByNumberBegin();
+
+    @Query("SELECT m FROM Movie m where UPPER(m.title) like concat(UPPER(:letter),'%')")
+    List<Movie> findByLetterBegin(String letter);
 }

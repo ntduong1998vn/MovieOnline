@@ -38,9 +38,24 @@ export function getOneMovieById(id) {
     })
 }
 
-export function findByTitle(keyword){
+export function findByTitle(keyword) {
     return request({
-        url:`${API_BASE_URL}/api/movies/search?keyword=${keyword}`,
-        method:"GET"
+        url: `${API_BASE_URL}/api/movies/search?keyword=${keyword}`,
+        method: "GET"
     })
+}
+
+export function findByLetterBegin(letter) {
+    if (letter.includes('0-9')) {
+        return request({
+            url: `${API_BASE_URL}/api/movies/list`,
+            method: 'GET'
+        })
+    } else {
+        return request({
+            url: `${API_BASE_URL}/api/movies/list?letter=${letter}`,
+            method: 'GET'
+        })
+    }
+
 }
