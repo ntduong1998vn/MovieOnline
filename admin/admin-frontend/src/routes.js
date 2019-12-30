@@ -54,21 +54,14 @@ const dashboardRoutes = [
   },
   {
     path: "/typography",
-    name: "Typography",
+    name: "Quản lý bình luận",
     icon: "pe-7s-news-paper",
     component: Typography,
     layout: "/admin"
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "pe-7s-science",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
     path: "/notifications",
-    name: "Notifications",
+    name: "Quản lý diễn viên",
     icon: "pe-7s-bell",
     component: Notifications,
     layout: "/admin"
