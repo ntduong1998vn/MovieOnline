@@ -16,32 +16,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String name;
-
     @Email
     @Column(nullable = false)
     private String email;
-
     private String imageUrl;
-
     @Column(nullable = false)
     private Boolean emailVerified = false;
-
     @JsonIgnore
     private String password;
-
-    @JsonIgnore
-    private String type;
-
+    @Lob
+    private byte[] avatar;
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
     private String providerId;
 
-    @JsonIgnore
     @Column(name = "role",columnDefinition = "varchar(10) default 'ROLE_USER' ")
     private String role;
 

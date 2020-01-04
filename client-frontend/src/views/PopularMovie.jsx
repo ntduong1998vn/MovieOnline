@@ -26,7 +26,6 @@ const PopularMovie = () => {
     });
     return () => {
       window.$(window).off("load");
-      // eslint-disable-next-line no-restricted-globals
     };
   }, []);
 
@@ -45,11 +44,12 @@ const PopularMovie = () => {
       });
     });
   });
+
   return (
     <React.Fragment>
       <div className="Latest-tv-series">
         <h4 className="latest-text w3_latest_text w3_home_popular">
-          Most Popular Movies
+          Phim phổ biến
         </h4>
         <div className="container" ref={flexEl}>
           <section className="slider">

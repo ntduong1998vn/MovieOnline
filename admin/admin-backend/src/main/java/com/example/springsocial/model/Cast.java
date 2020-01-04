@@ -2,6 +2,7 @@ package com.example.springsocial.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +22,10 @@ public class Cast {
     private String name;
 
     private String profile_path;
+
+    @Lob
+    @Column(name="img",columnDefinition = "MEDIUMBLOB")
+    private byte[] img;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cast_movie",fetch = FetchType.LAZY)

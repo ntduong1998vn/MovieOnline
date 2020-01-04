@@ -7,8 +7,10 @@ import com.example.springsocial.repository.MovieCastRepository;
 import com.example.springsocial.service.CastService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -62,6 +64,12 @@ public class CastController {
             return ResponseEntity.ok("Delete cast successfully!");
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed!");
+    }
+
+    @PutMapping(value = "/addNew",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity addNewCaster(@RequestParam(name = "file") MultipartFile file,@RequestParam(name = "name")String name){
+        service.createOne(name,file);
+        return ResponseEntity.ok("Thanh Cong!");
     }
 
 }

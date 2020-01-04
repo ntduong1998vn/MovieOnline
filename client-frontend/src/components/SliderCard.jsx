@@ -10,7 +10,6 @@ const SliderCard = ({
   linkVideo,
   unique,
   voteRate,
-  ...rest
 }) => {
   // function changeRating(newRating, name) {
   //   this.setState({

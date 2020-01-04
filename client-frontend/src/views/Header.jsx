@@ -5,8 +5,11 @@ import UserButton from "../components/UserButton/UserButton";
 import withContext from "../ContextAuth/Context_HOC";
 import LoginForm from "../components/LoginForm";
 import SearchBox from "../components/SearchBox";
+import RegisterForm from "../components/RegisterForm";
 import Alert from "react-s-alert";
+
 import { forgetPassword } from "../utils/AuthAPI";
+
 const Header = props => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -62,7 +65,7 @@ const Header = props => {
           </ul>
         </div>
         <div className="clearfix"> </div>
-      </div>  
+      </div>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -84,48 +87,6 @@ const Header = props => {
           </div>
         </Modal.Body>
       </Modal>
-    </div>
-  );
-};
-
-const RegisterForm = () => {
-  const [formData, setForm] = useState({ email: "", password: "" });
-  // const [errors, setErrors] = useState({});
-
-  function onSubmit(e) {
-    e.preventDefault();
-    Alert.success("Đăng ký thành công!");
-  }
-
-  function onChange(e) {
-    setForm({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  return (
-    <div className="form">
-      <h3>Tạo tài khoản</h3>
-      <form onSubmit={onSubmit}>
-        <input type="text" name="Username" placeholder="Username" required="" />
-        <input
-          type="password"
-          name="Password"
-          placeholder="Password"
-          required=""
-        />
-        <input
-          type="email"
-          name="Email"
-          placeholder="Email Address"
-          required=""
-        />
-        <input
-          type="text"
-          name="Phone"
-          placeholder="Phone Number"
-          required=""
-        />
-        <input type="submit" value="Đăng ký" />
-      </form>
     </div>
   );
 };

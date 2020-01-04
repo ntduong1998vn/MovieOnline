@@ -4,7 +4,7 @@ import MovieCard from "../components/MovieCard";
 const Feature = ({ feature, recently, topview }) => {
   return (
     <div className="general">
-      <h4 className="latest-text w3_latest_text">Featured Movies</h4>
+      <h4 className="latest-text w3_latest_text">Phim đề cử</h4>
       <div className="container">
         <div
           className="bs-example bs-example-tabs"
@@ -21,7 +21,7 @@ const Feature = ({ feature, recently, topview }) => {
                 aria-controls="home"
                 aria-expanded="true"
               >
-                Featured
+                Ngẫu nhiên
               </a>
             </li>
             <li role="presentation">
@@ -33,7 +33,7 @@ const Feature = ({ feature, recently, topview }) => {
                 aria-controls="profile"
                 aria-expanded="false"
               >
-                Top viewed
+                Phim hot
               </a>
             </li>
             <li role="presentation">
@@ -45,7 +45,7 @@ const Feature = ({ feature, recently, topview }) => {
                 aria-controls="imdb"
                 aria-expanded="false"
               >
-                Recently Added
+                Phim mới
               </a>
             </li>
           </ul>

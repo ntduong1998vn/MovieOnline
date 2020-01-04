@@ -1,7 +1,14 @@
 import React from "react";
 import "./userButton.css";
-import { ACCESS_TOKEN } from "../../constants/auth";
+import { ACCESS_TOKEN, USER_INFOR } from "../../constants/auth";
+import { Button } from "react-bootstrap";
+import withContext from "../../ContextAuth/Context_HOC";
+import { Link } from "react-router-dom";
+import imgNone from "../../assets/images/none.png";
+
 const UserButton = props => {
+  const userInfor = props.context.currentUser;
+
   return (
     <div className="btn-group">
       <a
@@ -15,30 +22,34 @@ const UserButton = props => {
       </a>
       <div className="dropdown-menu custom-dropdown-menu">
         <div className="user--avatar">
-          <img
-            src="https://lh6.googleusercontent.com/-CDVxvPvmnIs/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3re-xaZRccNeekUjIQ_f5qggAiOgoQ/photo.jpg"
-            alt="Lo"
-            height="80"
-            width="80"
-          />
+          {userInfor.avatar == null ? (
+            <img src={imgNone} alt="avatar" height="50px" width="50px" />
+          ) : (
+            <img
+              src={`data:image/jpeg;base64,${userInfor.avatar}`}
+              alt="avatar"
+              height="50px"
+              width="50px"
+            />
+          )}
         </div>
         <ul>
           <li>
-            <a href="#">
+            <Link to="/user">
               <i className="fa fa-user" aria-hidden="true"></i>
               Trang cá nhân
-            </a>
+            </Link>
           </li>
-          <li>
-            <a href="#">
+          {/* <li>
+            <Button>
               <i className="fa fa-arrow-circle-up" aria-hidden="true"></i>Nâng
               cấp VIP
-            </a>
-          </li>
+            </Button>
+          </li> */}
           <li>
-            <a href="#" onClick={() => localStorage.removeItem(ACCESS_TOKEN)}>
+            <Button onClick={() => props.context.logOut()}>
               <i className="fa fa-sign-out" aria-hidden="true"></i>Thoát
-            </a>
+            </Button>
           </li>
         </ul>
       </div>
@@ -46,4 +57,4 @@ const UserButton = props => {
   );
 };
 
-export default UserButton;
+export default withContext(UserButton);

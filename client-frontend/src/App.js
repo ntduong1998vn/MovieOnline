@@ -16,6 +16,9 @@ import "react-s-alert/dist/s-alert-css-effects/slide.css";
 import "react-s-alert/dist/s-alert-default.css";
 import Alert from 'react-s-alert'
 import MovieList from "./views/MovieList";
+import OAuth2RedirectHandler from "./utils/OAuth2RedirectHandler"
+import PrivateRoute from "./components/PrivateRoute"
+
 class App extends Component {
 
   constructor(props) {
@@ -28,6 +31,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setUpHeader();
+
     if (localStorage.getItem(ACCESS_TOKEN) != null) {
       this.props.context.loadCurrentUser().catch(error => {
         console.log("Error Load User: ", error);
@@ -46,7 +50,7 @@ class App extends Component {
 
   render() {
     const { genreList } = this.state;
-
+    console.log(this.props.context.isAuthenticate)
     return (
       <React.Fragment>
         <Header />
@@ -56,9 +60,10 @@ class App extends Component {
           <Route path="/" component={Home} exact />
           <Route path="/genre" component={Genres} />
           <Route path="/movie/:movieId" render={props => <Movie {...props} />} />
-          <Route path="/user" component={User} />
           <Route path="/search" component={Search} />
           <Route path="/list" component={MovieList} />
+          <PrivateRoute path="/user" authenticated={this.props.context.isAuthenticate} component={User} />
+          <Route path="/oauth2" component={OAuth2RedirectHandler} />
           <Route component={NotFound} />
         </Switch>
 

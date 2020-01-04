@@ -10,7 +10,7 @@ export default class AuthProvider extends Component {
     super();
     this.state = {
       isAuthenticate: false,
-      currentUser: {}
+      currentUser: null
     };
 
     this.logIn = this.logIn.bind(this);
@@ -31,7 +31,9 @@ export default class AuthProvider extends Component {
 
   logOut() {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(USER_INFOR);
     this.setState({ isAuthenticate: false, currentUser: null });
+    window.location.reload();
   }
 
   loadCurrentUser() {
@@ -60,5 +62,4 @@ export default class AuthProvider extends Component {
       </AuthContext.Provider>
     );
   }
-  
 }

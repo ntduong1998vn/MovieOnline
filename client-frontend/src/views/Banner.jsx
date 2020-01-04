@@ -5,14 +5,14 @@ import "dotdotdot-js";
 
 const Banner = () => {
   useEffect(() => {
-    // window.$("#slidey").slidey({
-    //   interval: 8000,
-    //   listCount: 5,
-    //   autoplay: false,
-    //   showList: true
-    // });
-    // window.$(".slidey-list-description").dotdotdot();
-  });
+    window.$("slidey").slidey({
+      interval: 8000,
+      listCount: 5,
+      autoplay: false,
+      showList: true
+    });
+    window.$(".slidey-list-description").dotdotdot();
+  }, []);
 
   return (
     <div id="slidey" style={{ display: "none" }}>
@@ -21,7 +21,6 @@ const Banner = () => {
           <img src="assets/images/5.jpg" alt=" " />
           <p className="title">Tarzan</p>
           <p className="description">
-            {" "}
             Tarzan, having acclimated to life in London, is called back to his
             former home in the jungle to investigate the activities at a mining
             encampment.

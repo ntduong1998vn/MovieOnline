@@ -4,7 +4,7 @@ import { IMAGE_BASE_URL, POSTER_SIZE } from "../constants/the-movie-db-api";
 import { Link } from "react-router-dom";
 
 const MovieCard = ({ movieId, imgUrl, movieName, release, isNew }) => {
-  const year = (new Date(release)).getFullYear;
+  const year = new Date(release).getFullYear();
   return (
     <div className="col-md-2 w3l-movie-gride-agile">
       <Link to={`/movie/${movieId}`} className="hvr-shutter-out-horizontal">
@@ -43,7 +43,7 @@ const MovieCard = ({ movieId, imgUrl, movieName, release, isNew }) => {
       </div>
       {isNew ? (
         <div className="ribben">
-          <p>NEW</p>
+          <p>Mới</p>
         </div>
       ) : null}
     </div>
