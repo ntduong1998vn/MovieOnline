@@ -11,10 +11,10 @@ import Alert from "react-s-alert";
 import { forgetPassword } from "../utils/AuthAPI";
 
 const Header = props => {
+  const [user, setUser] = useState(props.context.currentUser);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   useEffect(() => {
     window.$(".toggle").click(function() {
       // Switches the Icon
@@ -39,6 +39,13 @@ const Header = props => {
     forgetPassword().then(result => console.log(result));
     Alert.success("Đã mail xác nhận đển người dùng");
   }
+
+  function reload() {
+    props.context
+      .loadCurrentUser()
+      .then(() => setUser(props.context.currentUser));
+  }
+
   return (
     <div className="header">
       <div className="container">
@@ -56,7 +63,7 @@ const Header = props => {
         <div className="w3l_sign_in_register">
           <ul>
             {props.context.isAuthenticate ? (
-              <UserButton />
+              <UserButton user={user} logOut={props.context.logOut} />
             ) : (
               <li>
                 <a onClick={() => handleShow()}>Login</a>
@@ -78,7 +85,7 @@ const Header = props => {
                 <i className="fa fa-times fa-pencil"></i>
                 <div className="tooltip">Click Me</div>
               </div>
-              <LoginForm />
+              <LoginForm reload={reload} />
               <RegisterForm />
               <div className="cta">
                 <a href="#">Forgot your password?</a>

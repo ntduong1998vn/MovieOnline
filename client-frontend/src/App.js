@@ -50,7 +50,6 @@ class App extends Component {
 
   render() {
     const { genreList } = this.state;
-    console.log(this.props.context.isAuthenticate)
     return (
       <React.Fragment>
         <Header />

@@ -1,5 +1,6 @@
 package com.example.springsocial.controller;
 
+import com.example.springsocial.dto.ApiResponse;
 import com.example.springsocial.dto.MovieDTO;
 import com.example.springsocial.model.Movie;
 import com.example.springsocial.service.MovieService;
@@ -82,10 +83,11 @@ public class MovieController {
     }
 
     @PutMapping("/{movieId}")
-    public ResponseEntity<String> update(@PathVariable int movieId,@RequestBody MovieDTO movie) {
+    public ResponseEntity update(@PathVariable int movieId,@RequestBody MovieDTO movie) {
         boolean result = movieService.update(movieId,movie);
-        if (result)   return ResponseEntity.ok("Update movie successfully!");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error!");
+
+        if (result)   return ResponseEntity.ok(new ApiResponse(true,"Update movie successfully!"));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(true,"Error!"));
     }
 
     @DeleteMapping("/{id}")

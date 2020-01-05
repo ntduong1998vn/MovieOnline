@@ -1,10 +1,15 @@
 package com.example.springsocial.controller;
 
+import com.example.springsocial.dto.ActorDTO;
+import com.example.springsocial.dto.ApiResponse;
+import com.example.springsocial.dto.CastDTO;
 import com.example.springsocial.model.Cast;
 import com.example.springsocial.model.MovieCast;
 import com.example.springsocial.dto.CastRequest;
 import com.example.springsocial.repository.MovieCastRepository;
 import com.example.springsocial.service.CastService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +24,8 @@ import java.util.List;
 @RequestMapping("/api/cast")
 public class CastController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CastController.class);
+
     @Autowired
     private CastService service;
     @Autowired
@@ -29,8 +36,13 @@ public class CastController {
         return service.getAll();
     }
 
+    @GetMapping("/all-except-image")
+    public List<CastDTO> getAllExceptImg(){
+        return service.loadAllCastExceptImg();
+    }
+
     @GetMapping("/movie")
-    public List<MovieCast> getCastersByMovieId(@RequestParam(required = true, name = "id") int movieId) {
+    public List<ActorDTO> getCastersByMovieId(@RequestParam(required = true, name = "id") int movieId) {
         return service.getCharactersByMovieId(movieId);
     }
 
@@ -45,16 +57,14 @@ public class CastController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Luu khong thanh cong");
     }
 
-    @PutMapping("/{castId}")
-    public ResponseEntity<String> updateCast(@PathVariable int castId, @Valid @RequestBody CastRequest castRequest) {
-        Cast newCast = new Cast();
-        newCast.setName(castRequest.getName());
-        newCast.setProfile_path(castRequest.getProfile_path());
+    @PutMapping(value = "/{castId}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity updateCast(@PathVariable int castId,
+                                             @RequestParam(name = "file",required = false) MultipartFile file,
+                                             @RequestParam(name = "name") String name) {
+        if (service.update(castId, name,file))
+            return ResponseEntity.ok(new ApiResponse(true,"Sửa thông tin thành công"));
 
-        if (service.update(castId, newCast))
-            return ResponseEntity.ok("Data update successfully !");
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND!");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false,"Sửa thất bại!"));
     }
 
     @DeleteMapping("/{castId}")

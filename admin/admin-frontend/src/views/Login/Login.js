@@ -60,7 +60,7 @@ class LoginForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   handleInputChange(event) {
     const target = event.target;
     const inputName = target.name;
@@ -73,14 +73,14 @@ class LoginForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    
+
     const loginRequest = Object.assign({}, this.state);
 
     login(loginRequest)
       .then(response => {
         localStorage.setItem(ACCESS_TOKEN, response.accessToken);
         Alert.success("You're successfully logged in!");
-        this.props.history.push("/");
+        window.location.reload();
       })
       .catch(error => {
         Alert.error(
@@ -89,7 +89,7 @@ class LoginForm extends Component {
         );
       });
   }
-  
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -102,7 +102,7 @@ class LoginForm extends Component {
             value={this.state.email}
             onChange={this.handleInputChange}
             required
-            />
+          />
         </div>
         <div className="form-item">
           <input
@@ -113,7 +113,7 @@ class LoginForm extends Component {
             value={this.state.password}
             onChange={this.handleInputChange}
             required
-            />
+          />
         </div>
         <div className="form-item">
           <button type="submit" className="btn btn-block btn-primary">
@@ -145,4 +145,5 @@ class SocialLogin extends Component {
     );
   }
 }
+
 export default Login;

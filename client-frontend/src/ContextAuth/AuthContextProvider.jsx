@@ -37,15 +37,17 @@ export default class AuthProvider extends Component {
   }
 
   loadCurrentUser() {
-    return getCurrentUser().then(response => {
-      console.log(response);
-      localStorage.setItem(USER_INFOR, JSON.stringify(response));
-      this.setState({
-        isAuthenticate: true,
-        currentUser: response
-      });
-      return response;
-    });
+    return getCurrentUser()
+      .then(response => {
+        console.log(response);
+        localStorage.setItem(USER_INFOR, JSON.stringify(response));
+        this.setState({
+          isAuthenticate: true,
+          currentUser: response
+        });
+        return Promise.resolve("Load User information successfully!");
+      })
+      .catch(err => console.error(err.message));
   }
 
   render() {

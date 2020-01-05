@@ -70,6 +70,10 @@ public class Movie implements Serializable {
     @OneToMany(mappedBy = "movie_comment",fetch = FetchType.LAZY)
     Set<Comment> comments = new HashSet<>();
 
+    @Lob
+    private byte[] poster;
+
+
     public void addGenre(Genre genre){
         this.genres.add(genre);
         genre.getMovies().add(this);

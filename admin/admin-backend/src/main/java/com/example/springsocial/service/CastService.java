@@ -1,5 +1,7 @@
 package com.example.springsocial.service;
 
+import com.example.springsocial.dto.ActorDTO;
+import com.example.springsocial.dto.CastDTO;
 import com.example.springsocial.model.Cast;
 import com.example.springsocial.model.MovieCast;
 import com.example.springsocial.repository.CastRepository;
@@ -31,7 +33,7 @@ public class CastService implements ICastService {
     }
 
     @Override
-    public List<MovieCast> getCharactersByMovieId(int movieId) {
+    public List<ActorDTO> getCharactersByMovieId(int movieId) {
         return movieCastRepository.findByMovieCastKeyMovieId(movieId);
     }
 
@@ -42,16 +44,26 @@ public class CastService implements ICastService {
     }
 
     @Override
-    public boolean update(int castId,Cast cast) {
-        Optional<Cast> newCast = castRepository.findById(castId);
-        if(newCast.isPresent())
+    public boolean update(int castId,String name,MultipartFile file) {
+        Optional<Cast> result = castRepository.findById(castId);
+        if(result.isPresent())
         {
-            Cast save = newCast.get();
-            save.setName(cast.getName());
-            save.setProfile_path(cast.getProfile_path());
+            Cast cast = result.get();
+            cast.setName(name);
 
-            Cast result = castRepository.save(save);
-            return result != null;
+            if(file != null){
+                if(!file.isEmpty()){
+                    try {
+                        cast.setImg(file.getBytes());
+                    } catch (IOException e) {
+                        logger.error(e.getMessage());
+                        return false;
+                    }
+                }
+            }
+
+            Cast updateCast = castRepository.save(cast);
+            return updateCast != null;
         }
         return false;
     }
@@ -90,4 +102,13 @@ public class CastService implements ICastService {
         return true;
     }
 
+    @Override
+    public List<CastDTO> loadAllCastExceptImg() {
+        return castRepository.getAllCastExceptImg();
+    }
+
+    @Override
+    public Optional<Cast> findByCastId(int castId){
+        return castRepository.findById(castId);
+    }
 }

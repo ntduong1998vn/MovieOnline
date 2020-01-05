@@ -12,7 +12,9 @@ import ReactTable from "react-table";
 import { IMAGE_BASE_URL } from "../config";
 import axios from "axios";
 import _ from "lodash";
-// <tr>
+import { withRouter } from "react-router-dom";
+
+// <tr> 
 //   <td className="td-actions">
 //     <OverlayTrigger placement="top" overlay={edit}>
 //       <Button bsStyle="info" simple type="button">
@@ -32,7 +34,7 @@ const requestData = (pageSize, page, sorted, filtered) => {
   return new Promise((resolve, reject) => {
     // You can retrieve your data however you want, in this case, we will just use some local data.
     let filteredData = [];
-    const endpoint = "http://localhost:8080/api/movies/?page=0";
+    const endpoint = `http://localhost:8080/api/movies/all`;
     axios
       .get(endpoint, {
         headers: {
@@ -42,7 +44,9 @@ const requestData = (pageSize, page, sorted, filtered) => {
         }
       })
       .then(response => {
-        filteredData = response.data.content;
+        // filteredData = response.data.content;
+
+        filteredData = response.data;
         // You can use the filters in your request, but you are responsible for applying them.
         // if (filtered.length) {
         //   filteredData = filtered.reduce((filteredSoFar, nextFilter) => {
@@ -96,6 +100,9 @@ class MovieList extends Component {
     this.fetchData = this.fetchData.bind(this);
   }
 
+  handleEdit(movie) {
+    this.props.history.push(`/admin/movies/${movie.id}`);
+  }
   fetchData(state, instance) {
     // Whenever the table model changes, or the user sorts or changes pages, this method gets called and passed the current table model.
     this.setState({ loading: true });
@@ -129,11 +136,7 @@ class MovieList extends Component {
         sortable: false,
         Cell: row => (
           <React.Fragment>
-            <Image
-              src={IMAGE_BASE_URL + "w185" + row.value}
-              rounded
-              responsive
-            />
+            <Image src={IMAGE_BASE_URL + "w185" + row.value} rounded />
           </React.Fragment>
         )
       },
@@ -201,7 +204,7 @@ class MovieList extends Component {
             </Col>
             <Col md={12}>
               <ReactTable
-                manual
+                manual // informs React Table that you'll be handling sorting and pagination server-side
                 onFetchData={this.fetchData}
                 data={data}
                 columns={columns}

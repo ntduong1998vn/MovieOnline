@@ -1,13 +1,12 @@
 import React from "react";
 import "./userButton.css";
-import { ACCESS_TOKEN, USER_INFOR } from "../../constants/auth";
 import { Button } from "react-bootstrap";
-import withContext from "../../ContextAuth/Context_HOC";
+// import withContext from "../../ContextAuth/Context_HOC";
 import { Link } from "react-router-dom";
 import imgNone from "../../assets/images/none.png";
 
-const UserButton = props => {
-  const userInfor = props.context.currentUser;
+const UserButton = ({user , logOut}) => {
+  // const userInfor = props.context.currentUser;
 
   return (
     <div className="btn-group">
@@ -22,11 +21,11 @@ const UserButton = props => {
       </a>
       <div className="dropdown-menu custom-dropdown-menu">
         <div className="user--avatar">
-          {userInfor.avatar == null ? (
+          {user.avatar == null ? (
             <img src={imgNone} alt="avatar" height="50px" width="50px" />
           ) : (
             <img
-              src={`data:image/jpeg;base64,${userInfor.avatar}`}
+              src={`data:image/jpeg;base64,${user.avatar}`}
               alt="avatar"
               height="50px"
               width="50px"
@@ -47,7 +46,7 @@ const UserButton = props => {
             </Button>
           </li> */}
           <li>
-            <Button onClick={() => props.context.logOut()}>
+            <Button onClick={() => logOut()}>
               <i className="fa fa-sign-out" aria-hidden="true"></i>Thoát
             </Button>
           </li>
@@ -57,4 +56,4 @@ const UserButton = props => {
   );
 };
 
-export default withContext(UserButton);
+export default UserButton;

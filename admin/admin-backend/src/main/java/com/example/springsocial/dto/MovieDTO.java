@@ -1,8 +1,8 @@
 package com.example.springsocial.dto;
 
+import com.example.springsocial.model.Cast;
 import com.example.springsocial.model.Genre;
 import com.example.springsocial.model.LinkMovie;
-import com.example.springsocial.model.MovieCast;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class MovieDTO {
     private String backdrop_path;
     private long views;
 
-    Set<MovieCast> casters = new HashSet<>();
+    Set<ActorDTO> casters = new HashSet<>();
     Set<LinkMovie> links = new HashSet<>();
     Set<Genre> genres = new HashSet<>();
 

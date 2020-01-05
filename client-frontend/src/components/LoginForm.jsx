@@ -4,22 +4,24 @@ import Alert from "react-s-alert";
 import { withRouter } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../constants/auth";
+
 const LoginForm = props => {
   const [formData, setForm] = useState({ email: "", password: "" });
 
   function onSubmit(e) {
     e.preventDefault();
-    props.context.logIn(formData).then(() => {
-      Alert.success("You're successfully logged in!");
-      props.context.loadCurrentUser();
-      props.history.push("/user/");
-    });
-    // .catch(error => {
-    //   Alert.error(
-    //     (error && error.message) ||
-    //       "Oops! Something went wrong. Please try again!"
-    //   );
-    // });
+    props.context
+      .logIn(formData)
+      .then(() => {
+        props.reload();
+        Alert.success("You're successfully logged in!");
+        props.context.loadCurrentUser().then(() => {
+          // props.history.push("/user/");
+        });
+      })
+      .catch(error => {
+        Alert.error(error.message);
+      });
   }
 
   function onChange(e) {
@@ -46,8 +48,9 @@ const LoginForm = props => {
           placeholder="Nhập Password"
           required=""
         />
-        <input type="submit" value="Login" />
+        <input type="submit" value="Đăng nhập" />
       </form>
+
       <div className="social-group">
         <div className="social-title">Đăng nhập bằng</div>
         <Button className="social-login" href={GOOGLE_AUTH_URL} target="_blank">

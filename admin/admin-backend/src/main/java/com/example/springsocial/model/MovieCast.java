@@ -22,7 +22,7 @@ public class MovieCast {
     @JoinColumn(name = "movie_id")
     Movie movie_cast;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("cast_id")
     @JoinColumn(name = "cast_id")
     @JsonProperty("cast")
