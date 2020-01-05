@@ -1,18 +1,17 @@
 package com.example.springsocial.dto;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class ActorDTO {
     private int id;
     private String name;
-        private String character;
+    private String character;
+
+    public  ActorDTO(){}
 
     public ActorDTO(int id, String name) {
         this.id = id;

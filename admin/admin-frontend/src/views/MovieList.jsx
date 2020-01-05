@@ -14,7 +14,7 @@ import axios from "axios";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
 
-// <tr> 
+// <tr>
 //   <td className="td-actions">
 //     <OverlayTrigger placement="top" overlay={edit}>
 //       <Button bsStyle="info" simple type="button">
@@ -132,11 +132,16 @@ class MovieList extends Component {
       },
       {
         Header: "Hình ảnh",
-        accessor: "poster_path",
+        accessor: "poster",
         sortable: false,
         Cell: row => (
           <React.Fragment>
-            <Image src={IMAGE_BASE_URL + "w185" + row.value} rounded />
+            <Image
+              height="170px"
+              width="100px"
+              src={`data:image/png;base64,${row.value}`}
+              rounded
+            />
           </React.Fragment>
         )
       },

@@ -23,17 +23,25 @@ const request = async options => {
   return json;
 };
 
-export function loadMovieById(movieId){
-    return request({
-        url: `${API_BASE_URL}/api/movies/${movieId}`,
-        method: 'GET'
-    })
+export function loadMovieById(movieId) {
+  return request({
+    url: `${API_BASE_URL}/api/movies/${movieId}`,
+    method: 'GET'
+  })
 }
 
-export function updateMovie(movieId,movieObject){
+export function updateMovie(movieId, movieObject) {
   return request({
-    url:`${API_BASE_URL}/api/movies/${movieId}`,
-    method:'PUT',
+    url: `${API_BASE_URL}/api/movies/${movieId}`,
+    method: 'PUT',
     body: JSON.stringify(movieObject)
+  })
+}
+
+export function updateImage(movieId, formData) {
+  return request({
+    url: `${API_BASE_URL}/api/movies/${movieId}`,
+    method: "PUT",
+    body: formData
   })
 }

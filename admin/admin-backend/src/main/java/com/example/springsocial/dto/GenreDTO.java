@@ -8,10 +8,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GenreRequest {
+public class GenreDTO {
 
     private int id;
-
     @NotNull
     private String name;
 }

@@ -91,7 +91,13 @@ const MovieDetail = props => {
       casters: castSelected
     });
 
-    updateMovie(props.match.params.id, movie).then(res =>
+    let movieObject = {
+      ...movie,
+      release_date: releaseDate.yyyymmdd(),
+      genres: genreSelected,
+      casters: castSelected
+    };
+    updateMovie(props.match.params.id, movieObject).then(res =>
       console.log("Thanh cong!")
     );
   }
@@ -320,6 +326,9 @@ const MovieDetail = props => {
               label="Ảnh bìa"
               onChange={fileHandleChange}
             />
+            <Button fill bsStyle="danger">
+              Lưu Ảnh
+            </Button>
           </Col>
         </Row>
       </Grid>

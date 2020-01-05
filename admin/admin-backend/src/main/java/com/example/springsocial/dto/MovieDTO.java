@@ -30,6 +30,6 @@ public class MovieDTO {
 
     Set<ActorDTO> casters = new HashSet<>();
     Set<LinkMovie> links = new HashSet<>();
-    Set<Genre> genres = new HashSet<>();
+    Set<GenreDTO> genres = new HashSet<>();
 
 }

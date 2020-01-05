@@ -1,7 +1,7 @@
 package com.example.springsocial.controller;
 
 import com.example.springsocial.model.Genre;
-import com.example.springsocial.dto.GenreRequest;
+import com.example.springsocial.dto.GenreDTO;
 import com.example.springsocial.service.IGenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -27,9 +27,9 @@ public class GenreController {
     }
 
     @PostMapping("/")
-    public HttpEntity save(@Valid @RequestBody GenreRequest genreRequest) {
+    public HttpEntity save(@Valid @RequestBody GenreDTO genreDTO) {
         Genre genre = new Genre();
-        genre.setName(genreRequest.getName());
+        genre.setName(genreDTO.getName());
 
         Genre rs = service.add(genre);
 
@@ -50,11 +50,11 @@ public class GenreController {
 
     @PutMapping("/{genreId}")
     public ResponseEntity<?> update(@PathVariable int genreId,
-                                    @Valid @RequestBody GenreRequest genreRequest) {
+                                    @Valid @RequestBody GenreDTO genreDTO) {
         Optional<Genre> rs = service.findById(genreId);
         if(rs.isPresent()){
             Genre updateGenre = rs.get();
-            updateGenre.setName(genreRequest.getName());
+            updateGenre.setName(genreDTO.getName());
             Genre result = service.update(updateGenre);
             if (result != null) return ResponseEntity.ok("Update successfully");
         }

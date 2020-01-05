@@ -1,10 +1,9 @@
 package com.example.springsocial.service;
 
 import com.example.springsocial.dto.ActorDTO;
-import com.example.springsocial.dto.CastDTO;
+import com.example.springsocial.dto.GenreDTO;
 import com.example.springsocial.dto.MovieDTO;
 import com.example.springsocial.model.*;
-import com.example.springsocial.repository.CastRepository;
 import com.example.springsocial.repository.GenreRepository;
 import com.example.springsocial.repository.MovieCastRepository;
 import com.example.springsocial.repository.MovieRepository;
@@ -149,6 +148,7 @@ public class MovieService implements IMovieService {
     }
 
     @Override
+    @Transactional
     public boolean update(int movieId, MovieDTO movieDTO) {
         Optional<Movie> result = movieRepository.findById(movieId);
         if (result.isPresent()) {
@@ -170,7 +170,7 @@ public class MovieService implements IMovieService {
                 boolean updateGenresRelationship = updateGenresRelationship(movieId, movieDTO.getGenres());
                 boolean updateCastersRelationship = updateCastersRelationship(movieId,movieDTO.getCasters());
 
-                return updateGenresRelationship && updateCastersRelationship;
+                return updateGenresRelationship && updateCastersRelationship ;
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 return false;
@@ -180,14 +180,14 @@ public class MovieService implements IMovieService {
     }
 
     @Transactional
-    private boolean updateGenresRelationship(int movieId, Set<Genre> genreUpdateList) {
+    private boolean updateGenresRelationship(int movieId, Set<GenreDTO> genreUpdateList) {
         Optional<Movie> result = movieRepository.findById(movieId);
         if (!result.isPresent()) return false;
         Set<Genre> movieGenreList = result.get().getGenres();
 
         List<Integer> addList = genreUpdateList.stream()
                 .filter(genre -> movieGenreList.stream().noneMatch(x -> x.getId() == genre.getId()))
-                .map(Genre::getId)
+                .map(GenreDTO::getId)
                 .collect(Collectors.toList());
 
         List<Integer> removeList = movieGenreList.stream()
@@ -207,52 +207,50 @@ public class MovieService implements IMovieService {
 
     @Transactional
     private boolean updateCastersRelationship(int movieId, Set<ActorDTO> castUpdateList) {
-//        Optional<Movie> result = movieRepository.findById(movieId);
-//        if (!result.isPresent()) return false;
-//        List<MovieCast> movieCastList = castService.getCharactersByMovieId(movieId);
-//
-//        List<Integer> addList = castUpdateList.stream()
-//                .filter(cast -> movieCastList.stream().noneMatch(x -> x.getMovieCastKey().getCastId() == cast.getId()))
-//                .map(ActorDTO::getId)
-//                .collect(Collectors.toList());
-//
-//        List<Integer> removeList = movieCastList.stream()
-//                .filter(cast -> castUpdateList.stream().noneMatch(x -> x.getId() == cast.getMovieCastKey().getCastId()))
-//                .map(MovieCast::getMovieCastKey)
-//                .map(MovieCastKey::getCastId)
-//                .collect(Collectors.toList());
-//
-//        try {
-//            // Xoá diễn viên trong bộ phim
-//            for (int castId : removeList) {
-//                movieCastRepository.deleteByMovieCastKeyCastId(castId);
-//            }
-//
-//            // Thêm diễn viên mới
-//            String character = "Diễn viên";
-//            Movie movie = result.get();
-//            List<Cast> castAddList = new ArrayList<>();
-//
-//            for (int castId : addList) {
-//                Optional<Cast> result1 = castService.findByCastId(castId);
-//                result1.ifPresent(castAddList::add);
-//            }
-//
-//            for (Cast cast : castAddList) {
-//                MovieCast caster = new MovieCast();
-//                caster.setCharacter(character + " " + cast.getId());
-//                caster.setMovie_cast(movie);
-//                caster.setCast_movie(cast);
-//                movieCastRepository.save(caster);
-//            }
-//            return true;
-//        } catch (DataAccessException e) {
-//            logger.error(e.getMessage());
-//            return false;
-//        }
-        return false;
-    }
+        Optional<Movie> result = movieRepository.findById(movieId);
+        if (!result.isPresent()) return false;
+        List<ActorDTO> movieCastList = castService.getCharactersByMovieId(movieId);
 
+        List<Integer> addList = castUpdateList.stream()
+                .filter(cast -> movieCastList.stream().noneMatch(x -> x.getId() == cast.getId()))
+                .map(ActorDTO::getId)
+                .collect(Collectors.toList());
+
+        List<Integer> removeList = movieCastList.stream()
+                .filter(cast -> castUpdateList.stream().noneMatch(x -> x.getId() == cast.getId()))
+                .map(ActorDTO::getId)
+                .collect(Collectors.toList());
+
+        try {
+            // Xoá diễn viên trong bộ phim
+            for (int castId : removeList) {
+                movieCastRepository.deleteByMovieCastKeyCastId(castId);
+            }
+
+            // Thêm diễn viên mới
+            String character = "Diễn viên";
+            Movie movie = result.get();
+            List<Cast> castAddList = new ArrayList<>();
+
+            for (int castId : addList) {
+                Optional<Cast> result1 = castService.findByCastId(castId);
+                if(result1.isPresent())
+                    castAddList.add(result1.get());
+            }
+
+            for (Cast cast : castAddList) {
+                MovieCast caster = new MovieCast();
+                caster.setCharacter(character + " " + cast.getId());
+                caster.setMovie_cast(movie);
+                caster.setCast_movie(cast);
+                movieCastRepository.save(caster);
+            }
+            return true;
+        } catch (DataAccessException e) {
+            logger.error(e.getMessage());
+            return false;
+        }
+    }
 
     @Override
     public List<Movie> findByTitle(String keyword) {
